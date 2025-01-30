@@ -1,0 +1,7 @@
+{
+  "name": "nautilus-ionic",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

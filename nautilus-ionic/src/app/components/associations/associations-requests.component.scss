@@ -1,0 +1,8 @@
+img {
+  width: auto; /* Maintain the image's natural width */
+  height: auto; /* Maintain the image's natural height */
+  max-width: 100px; /* Limit the width */
+  max-height: 100px; /* Limit the height */
+  object-fit: cover; /* Maintain aspect ratio and fill the area */
+  border-radius: 8px; /* Optional: adds rounded corners */
+}
