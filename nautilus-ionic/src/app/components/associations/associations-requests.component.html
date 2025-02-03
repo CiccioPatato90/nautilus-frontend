@@ -6,11 +6,14 @@
       <ion-label>{{ assoc.name }}</ion-label>
       <ion-label>{{ assoc.website}}</ion-label>
       <ion-label>{{ assoc.address }}</ion-label>
-      <ion-button (click)="edit(assoc.id!)">Update</ion-button>
+      <ion-button (click)="goToDetail(assoc.id!)">Detail Page</ion-button>
       <ion-button (click)="delete(assoc.id!)">Delete</ion-button>
     </ion-item>
   </ion-list>
+
   <ng-template #noAssociations>
     <ion-label>No associations yet!</ion-label>
   </ng-template>
+
+
 </ion-content>

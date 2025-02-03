@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {JoinRequestDto, RequestControllerService} from "../../api";
+import {RequestControllerService} from "../../api";
+import {JoinRequestDto} from "../../api/model/joinRequestDto";
 
 @Component({
   selector: 'app-requests',

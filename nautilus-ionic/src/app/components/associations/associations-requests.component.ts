@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {Association, AssociationControllerService} from "../../api";
-import {ModalController} from "@ionic/angular";
+import {Association, AssociationMgmtControllerService} from "../../api";
+import {ModalController, NavController} from "@ionic/angular";
 import {AddAssociationModalComponent} from "../modals/add-association-modal/add-association-modal.component";
 import axios from "axios";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-associations',
@@ -12,22 +13,22 @@ import axios from "axios";
 export class AssociationsRequestsComponent implements OnInit {
   associations: Association[] = [];
 
-  constructor(private associationControllerService: AssociationControllerService,
-              private modalCtrl: ModalController) {}
+  constructor(private associationControllerService: AssociationMgmtControllerService,
+              private modalCtrl: ModalController, private navCtrl: NavController, private router: Router) {}
 
   ngOnInit() {
     this.loadAssociations();
   }
 
   loadAssociations() {
-    this.associationControllerService.apiAssociationsListGet().subscribe((data) => {
+    this.associationControllerService.apiSettingsAssocMgmtListGet().subscribe((data) => {
       this.associations = data;
     });
   }
 
 
   addAssociation(data: Association) {
-    this.associationControllerService.apiAssociationsAddPost(data).subscribe({
+    this.associationControllerService.apiSettingsAssocMgmtAddPost(data).subscribe({
       next: (response) => {
         console.log('Added:', response);
         this.loadAssociations();
@@ -40,7 +41,7 @@ export class AssociationsRequestsComponent implements OnInit {
   }
 
   private editAssociation(data: Association) {
-    this.associationControllerService.apiAssociationsEditPost(data).subscribe({
+    this.associationControllerService.apiSettingsAssocMgmtEditPost(data).subscribe({
       next: (response) => {
         console.log('Edited:', response);
         this.loadAssociations();
@@ -88,7 +89,7 @@ export class AssociationsRequestsComponent implements OnInit {
   }
 
   edit(id: number) {
-    this.associationControllerService.apiAssociationsGetIdPost(id).subscribe({
+    this.associationControllerService.apiSettingsAssocMgmtGetIdPost(id).subscribe({
       next: (assoc) => {
         console.log('get:', assoc);
         this.openEditModal(assoc)
@@ -102,7 +103,7 @@ export class AssociationsRequestsComponent implements OnInit {
   }
 
   delete(id: number) {
-    this.associationControllerService.apiAssociationsDeleteIdPost(id).subscribe({
+    this.associationControllerService.apiSettingsAssocMgmtDeleteIdPost(id).subscribe({
       next: (response) => {
         console.log('Deleted:', response);
         this.loadAssociations();
@@ -122,5 +123,9 @@ export class AssociationsRequestsComponent implements OnInit {
     else{
       return null;
     }
+  }
+
+  goToDetail(id: number) {
+    this.router.navigate(['/settings/assoc-mgmt/get', id]);
   }
 }

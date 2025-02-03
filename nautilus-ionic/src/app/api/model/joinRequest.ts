@@ -9,28 +9,26 @@
  */
 import { ObjectId } from './objectId';
 import { ContactInfo } from './contactInfo';
-import { History } from './history';
+import { RequestType } from './requestType';
 
 
 export interface JoinRequest { 
-    requestId?: ObjectId;
-    associationName?: string;
-    timestamp?: string;
-    date?: string;
+    _id?: ObjectId;
+    requestId?: string;
+    associationId?: string;
+    requestType?: RequestType;
     motivation?: string;
+    status?: string;
+    tags?: Array<string>;
+    updatedAt?: string;
+    createdAt?: string;
+    associationName?: string;
+    date?: string;
     contactInfo?: ContactInfo;
-    category?: string;
-    urgency?: string;
     attachments?: Array<string>;
     location?: string;
-    status?: string;
-    assignedAdmin?: string;
-    priority?: string;
-    actionTaken?: string;
-    resolutionTimestamp?: string;
-    requestSource?: string;
-    tags?: Array<string>;
-    processingTime?: number;
-    history?: Array<History>;
 }
+export namespace JoinRequest {
+}
+
 

@@ -1,7 +1,11 @@
-export * from './associationController.service';
-import { AssociationControllerService } from './associationController.service';
+export * from './associationMgmtController.service';
+import { AssociationMgmtControllerService } from './associationMgmtController.service';
 export * from './authController.service';
 import { AuthControllerService } from './authController.service';
+export * from './itemMgmtController.service';
+import { ItemMgmtControllerService } from './itemMgmtController.service';
 export * from './requestController.service';
 import { RequestControllerService } from './requestController.service';
-export const APIS = [AssociationControllerService, AuthControllerService, RequestControllerService];
+export * from './settingsController.service';
+import { SettingsControllerService } from './settingsController.service';
+export const APIS = [AssociationMgmtControllerService, AuthControllerService, ItemMgmtControllerService, RequestControllerService, SettingsControllerService];

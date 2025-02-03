@@ -7,11 +7,13 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { RequestType } from './requestType';
 
 
 export interface RequestFilter { 
     associationName?: string;
-    category?: string;
+    associationId?: string;
+    requestType?: RequestType;
     urgency?: string;
     status?: string;
     assignedAdmin?: string;
@@ -21,4 +23,7 @@ export interface RequestFilter {
     dateTo?: string;
     empty?: boolean;
 }
+export namespace RequestFilter {
+}
+
 

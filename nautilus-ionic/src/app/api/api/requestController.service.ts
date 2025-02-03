@@ -19,9 +19,9 @@ import { Observable }                                        from 'rxjs';
 // @ts-ignore
 import { JoinRequest } from '../model/joinRequest';
 // @ts-ignore
-import { JoinRequestDto } from '../model/joinRequestDto';
-// @ts-ignore
 import { RequestFilter } from '../model/requestFilter';
+// @ts-ignore
+import { RequestListResponse } from '../model/requestListResponse';
 
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -95,7 +95,7 @@ export class RequestControllerService {
     }
 
     /**
-     * Add
+     * Add Request
      * @param joinRequest 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -175,20 +175,26 @@ export class RequestControllerService {
     }
 
     /**
-     * Get Requests
+     * List
      * @param requestFilter 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiRequestsGetPost(requestFilter: RequestFilter, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<Array<JoinRequestDto>>;
-    public apiRequestsGetPost(requestFilter: RequestFilter, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<Array<JoinRequestDto>>>;
-    public apiRequestsGetPost(requestFilter: RequestFilter, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<Array<JoinRequestDto>>>;
-    public apiRequestsGetPost(requestFilter: RequestFilter, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public apiRequestsListPost(requestFilter: RequestFilter, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<RequestListResponse>;
+    public apiRequestsListPost(requestFilter: RequestFilter, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<RequestListResponse>>;
+    public apiRequestsListPost(requestFilter: RequestFilter, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<RequestListResponse>>;
+    public apiRequestsListPost(requestFilter: RequestFilter, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (requestFilter === null || requestFilter === undefined) {
-            throw new Error('Required parameter requestFilter was null or undefined when calling apiRequestsGetPost.');
+            throw new Error('Required parameter requestFilter was null or undefined when calling apiRequestsListPost.');
         }
 
         let localVarHeaders = this.defaultHeaders;
+
+        let localVarCredential: string | undefined;
+        // authentication (SecurityScheme) required
+        localVarCredential = this.configuration.lookupCredential('SecurityScheme');
+        if (localVarCredential) {
+        }
 
         let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
         if (localVarHttpHeaderAcceptSelected === undefined) {
@@ -233,8 +239,8 @@ export class RequestControllerService {
             }
         }
 
-        let localVarPath = `/api/requests/get`;
-        return this.httpClient.request<Array<JoinRequestDto>>('post', `${this.configuration.basePath}${localVarPath}`,
+        let localVarPath = `/api/requests/list`;
+        return this.httpClient.request<RequestListResponse>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 body: requestFilter,

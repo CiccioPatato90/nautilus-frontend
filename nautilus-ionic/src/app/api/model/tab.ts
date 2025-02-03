@@ -16,6 +16,7 @@ export interface Tab {
     path?: string;
     icon?: string;
     order?: number;
+    tabType?: string;
     roles?: Set<Role>;
 }
 
