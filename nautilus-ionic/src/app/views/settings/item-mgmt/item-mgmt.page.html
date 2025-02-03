@@ -1,0 +1,39 @@
+<!--MIGHT BE INTERESTING TO VISUALIZE THE DIFFERENCE IN ITEMS BETWEEN WHAT IS IN THE REQUESTS AND WHAT WE ALREADY HAVE-->
+<!--<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>-->
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <!-- Left Column: Inventory List -->
+      <ion-col size="6">
+        <ion-card>
+          <ion-card-header>
+            <ion-searchbar (ionInput)="filterItems()"></ion-searchbar>
+          </ion-card-header>
+
+          <ion-list>
+            <ion-item *ngFor="let item of items">
+              <ion-label>
+                <h2>{{ item.name }}</h2>
+                <p>Categoria: {{ item.itemCategory?.name }}</p>
+<!--                <p>Status: <strong [class.banned]="item.banned">{{ item.banned ? 'BANNED' : 'ACTIVE' }}</strong></p>-->
+              </ion-label>
+
+              <ion-button fill="clear" color="danger">
+                <ion-icon name="ban"></ion-icon>
+              </ion-button>
+            </ion-item>
+          </ion-list>
+        </ion-card>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
+
+
+
+
+
+
