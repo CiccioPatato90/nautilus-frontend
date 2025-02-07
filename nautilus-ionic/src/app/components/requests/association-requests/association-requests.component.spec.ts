@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { JoinRequestsComponent } from './join-requests.component';
+import { AssociationRequestsComponent } from './association-requests.component';
 
 describe('JoinRequestsComponent', () => {
-  let component: JoinRequestsComponent;
-  let fixture: ComponentFixture<JoinRequestsComponent>;
+  let component: AssociationRequestsComponent;
+  let fixture: ComponentFixture<AssociationRequestsComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ JoinRequestsComponent ],
+      declarations: [ AssociationRequestsComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(JoinRequestsComponent);
+    fixture = TestBed.createComponent(AssociationRequestsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

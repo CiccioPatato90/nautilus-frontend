@@ -1,0 +1,87 @@
+/* Inventory & Approval Cards */
+.inventory-card,
+.approval-card {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  margin: 16px;
+}
+
+/* Card Header */
+.card-header {
+  background: linear-gradient(135deg, var(--primary-gradient-start), var(--primary-gradient-end));
+  background-size: cover;
+  color: var(--header-text-color, #fff);
+  padding: 16px;
+}
+
+/* Title */
+.card-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: var(--header-text-color, #fff);
+}
+
+/* Card Content */
+.card-content {
+  padding: 16px;
+  background: var(--background-color);
+}
+
+/* Info Rows */
+.header-row {
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 8px;
+  padding-bottom: 4px;
+}
+
+/* Labels & Values */
+.header-label,
+.data-value,
+.info-label,
+.info-value {
+  font-size: 1.2em;
+  color: var(--primary-text-color);
+}
+
+.header-label,
+.info-label {
+  font-weight: bold;
+}
+
+/* Data Rows */
+.data-row {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.data-row:last-child {
+  border-bottom: none;
+}
+
+/* Change Types */
+.change-type {
+  display: flex;
+  align-items: center;
+}
+
+.change-icon {
+  margin-right: 4px;
+  font-size: 1.5em;
+}
+
+.change-icon.increase {
+  color: #4CAF50;
+}
+
+.change-icon.decrease {
+  color: #F44336;
+}
+
+.change-icon.addnew {
+  color: #2196F3;
+}
+
+.change-icon.delete {
+  color: #9E9E9E;
+}

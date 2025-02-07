@@ -9,20 +9,23 @@
  */
 import { ObjectId } from './objectId';
 import { ContactInfo } from './contactInfo';
+import { RequestStatus } from './requestStatus';
 import { RequestType } from './requestType';
 
 
 export interface JoinRequest { 
-    _id?: ObjectId;
     requestId?: string;
-    associationId?: string;
+    associationReqId?: string;
+    associationSQLId?: string;
+    associationConfirmed?: boolean;
+    associationName?: string;
     requestType?: RequestType;
     motivation?: string;
-    status?: string;
+    status?: RequestStatus;
     tags?: Array<string>;
     updatedAt?: string;
     createdAt?: string;
-    associationName?: string;
+    _id?: ObjectId;
     date?: string;
     contactInfo?: ContactInfo;
     attachments?: Array<string>;

@@ -7,18 +7,17 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { RequestStatus } from './requestStatus';
 import { RequestType } from './requestType';
 
 
 export interface RequestFilter { 
+    requestType?: RequestType;
     associationName?: string;
     associationId?: string;
-    requestType?: RequestType;
-    urgency?: string;
-    status?: string;
-    assignedAdmin?: string;
+    associationConfirmed?: string;
+    status?: RequestStatus;
     location?: string;
-    tags?: Array<string>;
     dateFrom?: string;
     dateTo?: string;
     empty?: boolean;

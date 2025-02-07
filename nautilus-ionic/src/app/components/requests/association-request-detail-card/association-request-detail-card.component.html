@@ -1,0 +1,62 @@
+<ion-card class="contact-card">
+  <ion-card-header class="card-header">
+    <ion-card-title class="card-title">
+      <ion-icon name="call-outline" class="header-icon"></ion-icon>
+      Contact Information
+    </ion-card-title>
+  </ion-card-header>
+  <ion-card-content class="card-content">
+    <ion-grid>
+
+      <ion-row class="info-row">
+        <ion-col size="12">
+          <ion-label class="info-label">Email</ion-label>
+          <div class="info-value">
+            <ion-icon name="mail-outline" class="info-icon"></ion-icon>
+            {{ req.contactInfo?.email || 'N/A' }}
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="info-row">
+        <ion-col size="12">
+          <ion-label class="info-label">Phone</ion-label>
+          <div class="info-value">
+            <ion-icon name="call-outline" class="info-icon"></ion-icon>
+            {{ req.contactInfo?.phone || 'N/A' }}
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="info-row" *ngIf="req.location">
+        <ion-col size="12">
+          <ion-label class="info-label">Location</ion-label>
+          <div class="info-value">
+            <ion-icon name="location-outline" class="info-icon"></ion-icon>
+            {{ req.location }}
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="info-row" *ngIf="req.attachments?.length">
+        <ion-col size="12">
+          <ion-label class="info-label">Attachments</ion-label>
+          <div class="info-value">
+            <ion-icon name="attach-outline" class="info-icon"></ion-icon>
+            <ng-container *ngIf="req.attachments as attachments">
+              <ng-container *ngFor="let file of attachments; let i = index">
+                <a [href]="file" download class="download-link">
+                  <ion-icon name="download-outline" class="download-icon"></ion-icon>
+                  {{ file }}
+                </a>
+                <span *ngIf="i < attachments.length - 1">, </span>
+              </ng-container>
+            </ng-container>
+          </div>
+        </ion-col>
+      </ion-row>
+
+
+    </ion-grid>
+  </ion-card-content>
+</ion-card>

@@ -1,0 +1,101 @@
+<app-toolbar [title]="'Detail for Request: ' + req.requestId">
+</app-toolbar>
+
+<ion-card class="custom-card">
+  <ion-card-header class="card-header">
+    <ion-card-title class="title">
+      <ng-container *ngIf="req.associationConfirmed; else notConfirmed">
+        <ion-icon name="people-outline" class="header-icon"></ion-icon>
+        {{ req.associationName }}
+      </ng-container>
+      <ng-template #notConfirmed>
+        <ion-icon name="warning-outline" class="header-icon warning-icon"></ion-icon>
+        <ion-label class="warning-label">
+          Association Not Confirmed
+          <!-- Future: Make this a link with [routerLink]="['/get', req.associationRequestId]" -->
+          (ID: {{ req.associationReqId }})
+        </ion-label>
+        <ion-button fill="solid" [routerLink]="['/requests/get', req.associationReqId]" class="navigate-button">
+          <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+          <ion-label>Navigate to Request</ion-label>
+        </ion-button>
+      </ng-template>
+
+    </ion-card-title>
+    <ion-card-subtitle class="subtitle">
+      <ion-icon name="albums-outline" class="header-icon"></ion-icon>
+      {{ req.requestType }}
+    </ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content class="card-content">
+    <ion-grid>
+      <ion-row class="info-row">
+        <ion-col size="6">
+          <ion-label class="info-label">Motivation</ion-label>
+          <div class="info-value">{{ req.motivation }}</div>
+        </ion-col>
+        <ion-col size="6">
+            <ion-label class="info-label">Status</ion-label>
+            <div class="status-container">
+              <span class="status-text" [style.color]="getStatusColor(req.status)">
+                <ion-icon
+                  [name]="getStatusIcon(req.status)"
+                  class="status-icon"
+                  [style.color]="getStatusColor(req.status)">
+              </ion-icon>
+        {{ req.status }}
+      </span>
+            </div>
+        </ion-col>
+
+      </ion-row>
+      <ion-row class="info-row">
+        <ion-col size="6">
+          <ion-label class="info-label">Created At</ion-label>
+          <div class="info-value">{{ req.createdAt | date }}</div>
+        </ion-col>
+        <ion-col size="6">
+          <ion-label class="info-label">Updated At</ion-label>
+          <div class="info-value">{{ req.updatedAt | date }}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row class="info-row">
+        <ion-col size="12">
+          <ion-label class="info-label">Tags</ion-label>
+          <div class="info-value">{{ req.tags }}</div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card-content>
+</ion-card>
+
+
+<div [ngSwitch]="req.requestType">
+  <app-inventory-item-card *ngSwitchCase="RequestType.InventoryRequest" [req]="req"></app-inventory-item-card>
+  <app-association-request-detail-card *ngSwitchCase="RequestType.OrganizationJoinRequest" [req]="req"></app-association-request-detail-card>
+</div>
+
+
+<ion-card class="approval-action-card">
+  <ion-card-header class="card-header">
+    <ion-card-title class="card-title">Approval Actions</ion-card-title>
+  </ion-card-header>
+  <ion-card-content class="card-content">
+    <ion-grid>
+      <ion-row class="approval-action-row">
+        <ion-col size="6">
+          <ion-button expand="block" color="success" [disabled]="!req.associationConfirmed || req.status === RequestStatus.Approved" (click)="approveRequest()">
+            <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
+            Approve
+          </ion-button>
+        </ion-col>
+        <ion-col size="6">
+          <ion-button expand="block" color="danger" [disabled]="!req.associationConfirmed || req.status === RequestStatus.Approved" (click)="rejectRequest()">
+            <ion-icon slot="start" name="close-circle-outline"></ion-icon>
+            Reject
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card-content>
+</ion-card>

@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {RequestControllerService} from "../../api";
+import {
+  BaseRequest,
+  RequestControllerService,
+  RequestFilter,
+  RequestListResponse,
+  RequestStatus,
+  RequestType
+} from "../../api";
 import {JoinRequestDto} from "../../api/model/joinRequestDto";
+import {RequestsFilterService} from "../../services/requests/requests-filter.service";
 
 @Component({
   selector: 'app-requests',
@@ -9,37 +17,41 @@ import {JoinRequestDto} from "../../api/model/joinRequestDto";
 })
 export class RequestsPage implements OnInit {
 
-  constructor(private requestsController: RequestControllerService) { }
+  filters: RequestFilter = {} as RequestFilter;
+
+  requestTypes = Object.values(RequestType);
+
+  requestResponse: RequestListResponse = {} as RequestListResponse;
+  constructor(private requestController: RequestControllerService,
+              private requestFilterService: RequestsFilterService) { }
 
   ngOnInit() {
-    console.log();
+    this.filters = Object.assign({} as RequestFilter, {
+      requestType: RequestType.OrganizationJoinRequest,
+      status: RequestStatus.Pending
+    } as RequestFilter);
+
+    this.requestFilterService.filters$.subscribe(filters => {
+      if (filters !== null){
+        this.filters = filters;
+        this.loadJoinRequests();
+      }
+    });
+
+    this.loadJoinRequests();
+
   }
 
-  mockAddRequest() {
-    var requestDto = Object.assign({} as JoinRequestDto, {
-      associationName: `Association ${Math.floor(Math.random() * 1000)}`,
-      timestamp: new Date().toISOString(),
-      date: new Date().toISOString().split("T")[0],
-      motivation: "We would like to partner for an upcoming event.",
-      contactInfo: {
-        email: `contact${Math.floor(Math.random() * 100)}@example.com`,
-        phone: `+1${Math.floor(1000000000 + Math.random() * 9000000000)}`,
-      },
-      status: 'Pending',
-      requestSource: 'web',
-      history: [
-        {
-          changedBy: "client",
-          timestamp: new Date().toISOString()
-        },
-      ],
-    } as JoinRequestDto);
+  private loadJoinRequests() {
+    this.requestController.apiRequestsListPost(this.filters).subscribe(response => {
+      console.log("Received response", response)
+      this.requestResponse = response;
+    });
+  }
 
-    console.log("sending:", requestDto);
-
-    this.requestsController.apiRequestsAddPost(requestDto).subscribe(value => {
-      console.log("received response!!! ", value);
-    })
+  filterTypeChanged($event: any) {
+    this.filters.requestType = $event.detail.value;
+    this.loadJoinRequests();
   }
 
 }

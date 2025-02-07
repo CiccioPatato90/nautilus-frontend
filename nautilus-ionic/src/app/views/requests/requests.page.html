@@ -1,5 +1,31 @@
 
+<!--<ion-content>-->
+<!--&lt;!&ndash;  <ion-button (click)="mockAddRequest()"></ion-button>&ndash;&gt;-->
+<!--  <app-join-requests></app-join-requests>-->
+<!--</ion-content>-->
+
+
+
 <ion-content>
-<!--  <ion-button (click)="mockAddRequest()"></ion-button>-->
-  <app-join-requests></app-join-requests>
+
+  <ion-segment [(ngModel)]="filters.requestType" (ionChange)="filterTypeChanged($event)">
+    <ion-segment-button *ngFor="let reqType of requestTypes" [value]="reqType">
+      <ion-label>{{ reqType }}</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <app-requests-filter [filters]="filters"></app-requests-filter>
+
+  <!-- Request List Accordion Content -->
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6" *ngFor="let req of requestResponse.allRequests">
+        <div [ngSwitch]="req.requestType">
+          <app-association-requests *ngSwitchCase="'ORGANIZATION_JOIN_REQUEST'" [request]="req"></app-association-requests>
+          <app-inventory-requests *ngSwitchCase="'INVENTORY_REQUEST'" [request]="req"></app-inventory-requests>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
 </ion-content>

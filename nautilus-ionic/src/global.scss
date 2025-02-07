@@ -25,6 +25,30 @@
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
+/* TailwindCSS import */
+//@import "tailwindcss";
+
+:root {
+  --primary-gradient-start: #2C3E50; /* Navy-ish blue */
+  --primary-gradient-end: #2980B9;   /* Lighter blue */
+  --background-color: #ECECEC;       /* Light gray background */
+  --accent-color: #F39C12;           /* Orange accent */
+  --inventory-request-color: #2980B9; /* A cool blue for InventoryRequests */
+  --association-request-color: #F39C12; /* A warm orange for AssociationRequests, complementary to blue */
+}
+
+body {
+  background-color: var(--background-color);
+  color: #333;
+  font-family: Arial, sans-serif;
+}
+
+html {
+  --ion-dynamic-font: var(--ion-default-dynamic-font);
+  --ion-font-family: 'Open Sans';
+}
+
+
 /**
  * Ionic Dark Mode
  * -----------------------------------------------------

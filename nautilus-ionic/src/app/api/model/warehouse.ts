@@ -7,18 +7,11 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { InventoryBox } from './inventoryBox';
 
 
-export interface Association { 
+export interface Warehouse { 
     id?: number;
     name?: string;
-    address?: string;
-    email?: string;
-    phone?: string;
-    website?: string;
-    remarks?: string;
-    img64?: Blob;
-    inventoryBoxes?: Set<InventoryBox>;
+    location?: string;
 }
 

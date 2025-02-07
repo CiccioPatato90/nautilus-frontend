@@ -14,6 +14,8 @@ index.ts
 model/association.ts
 model/baseRequest.ts
 model/contactInfo.ts
+model/inventoryBox.ts
+model/inventoryBoxSize.ts
 model/inventoryChange.ts
 model/inventoryItem.ts
 model/inventoryItemCategory.ts
@@ -22,10 +24,14 @@ model/itemMgmtResponse.ts
 model/joinRequest.ts
 model/models.ts
 model/objectId.ts
+model/requestCommand.ts
+model/requestCommandType.ts
 model/requestFilter.ts
 model/requestListResponse.ts
+model/requestStatus.ts
 model/requestType.ts
 model/role.ts
 model/tab.ts
+model/warehouse.ts
 param.ts
 variables.ts

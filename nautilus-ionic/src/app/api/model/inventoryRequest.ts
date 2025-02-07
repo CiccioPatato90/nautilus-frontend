@@ -9,19 +9,23 @@
  */
 import { ObjectId } from './objectId';
 import { InventoryChange } from './inventoryChange';
+import { RequestStatus } from './requestStatus';
 import { RequestType } from './requestType';
 
 
 export interface InventoryRequest { 
-    _id?: ObjectId;
     requestId?: string;
-    associationId?: string;
+    associationReqId?: string;
+    associationSQLId?: string;
+    associationConfirmed?: boolean;
+    associationName?: string;
     requestType?: RequestType;
     motivation?: string;
-    status?: string;
+    status?: RequestStatus;
     tags?: Array<string>;
     updatedAt?: string;
     createdAt?: string;
+    _id?: ObjectId;
     inventoryChanges?: Array<InventoryChange>;
     approvedBy?: string;
     approvalDate?: string;

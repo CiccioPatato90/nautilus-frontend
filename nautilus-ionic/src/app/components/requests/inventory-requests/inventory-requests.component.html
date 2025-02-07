@@ -1,0 +1,37 @@
+<ion-card (click)="navigateToDetail()" class="inventory-card-list">
+  <ion-card-header>
+    <ion-card-title>
+      <ion-icon  style="padding-right: 16px" [name]="'tennisball-outline'"></ion-icon>
+      <ion-label>{{ request._id }}</ion-label>
+    </ion-card-title>
+    <ion-card-subtitle>
+      <ion-icon style="padding-right: 16px" name="finger-print-outline"></ion-icon>
+      <!--                <ion-label [title]="getCardSubtitle(req)"></ion-label>-->
+      <ion-label>{{'Request ID: ' + request.requestId }}</ion-label>
+    </ion-card-subtitle>
+  </ion-card-header>
+
+  <ion-card-content>
+    <div>
+      <ion-chip [color]="getStatusColor(request.status)">
+        <ion-icon [name]="getStatusIcon(request.status)"></ion-icon>
+        <ion-label>{{ request.status }}</ion-label>
+      </ion-chip>
+
+      <ion-chip>
+        <ion-icon name="calendar-outline"></ion-icon>
+        <ion-label>{{ formatTimestamp(request.updatedAt) }}</ion-label>
+      </ion-chip>
+    </div>
+
+    <div *ngIf="request.tags?.length">
+      <strong>
+        <ion-icon name="pricetags-outline"></ion-icon> Tags:
+      </strong>
+      <ion-chip *ngFor="let inv of request.inventoryChanges">
+        <ion-icon name="pricetag-outline"></ion-icon>
+        <ion-label>{{ inv.itemName }}</ion-label>
+      </ion-chip>
+    </div>
+  </ion-card-content>
+</ion-card>

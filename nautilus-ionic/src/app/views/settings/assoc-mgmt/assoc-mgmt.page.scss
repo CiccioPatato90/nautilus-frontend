@@ -1,0 +1,43 @@
+/* Toolbar with Gradient Background */
+ion-toolbar {
+  background: linear-gradient(135deg, var(--primary-gradient-start), var(--primary-gradient-end));
+  color: white;
+}
+
+/* Card Styles */
+ion-card {
+  background: var(--background-color);
+  color: #333; /* Dark text for readability */
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  margin: 16px;
+}
+
+/* Ensure card header and content text have sufficient contrast */
+ion-card-header,
+ion-card-title,
+ion-card-subtitle,
+ion-card-content {
+  color: #333;
+}
+
+/* Global Icon Styling */
+ion-icon {
+  font-size: 1.5em;
+  vertical-align: middle;
+  margin-right: 8px;
+  color: var(--accent-color);
+}
+
+/* Header Icon (for larger icons in headers) */
+.header-icon {
+  font-size: 2em;
+  margin-right: 12px;
+  color: var(--primary-gradient-end);
+}
+
+/* Optional: Styling for buttons with icons */
+ion-button ion-icon {
+  margin-right: 4px;
+}

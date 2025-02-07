@@ -1,0 +1,13 @@
+ion-header {
+  --background: linear-gradient(135deg, var(--primary-gradient-start, #2C3E50), var(--primary-gradient-end, #2980B9));
+  color: #fff;
+}
+
+ion-title {
+  font-weight: bold;
+}
+
+ion-content {
+  font-size: 1.2em;
+  color: var(--primary-text-color, #222);
+}

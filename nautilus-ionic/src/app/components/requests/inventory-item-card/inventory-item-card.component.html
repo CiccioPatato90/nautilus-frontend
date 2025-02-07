@@ -1,0 +1,70 @@
+<ion-card class="inventory-card">
+  <ion-card-header class="card-header">
+    <ion-card-title class="card-title">Inventory Changes</ion-card-title>
+  </ion-card-header>
+  <ion-card-content class="card-content">
+    <ion-grid>
+      <!-- Table Header -->
+      <ion-row class="header-row">
+        <ion-col size="3"><div class="header-label">Item</div></ion-col>
+        <ion-col size="3"><div class="header-label">Prev Qty</div></ion-col>
+        <ion-col size="3"><div class="header-label">Req Qty</div></ion-col>
+        <ion-col size="3"><div class="header-label">Change</div></ion-col>
+      </ion-row>
+      <!-- Table Data -->
+      <ion-row *ngFor="let change of req.inventoryChanges" class="data-row">
+        <ion-col size="3">
+          <div class="data-value">{{ change.itemName }}</div>
+        </ion-col>
+        <ion-col size="3">
+          <div class="data-value">{{ change.previousQuantity }}</div>
+        </ion-col>
+        <ion-col size="3">
+          <div class="data-value">{{ change.requestedQuantity }}</div>
+        </ion-col>
+        <ion-col size="3">
+          <div class="data-value change-type">
+            <!-- Increase -->
+            <ion-icon *ngIf="change.changeType === 'Increase'" name="arrow-up-outline" class="change-icon increase"></ion-icon>
+            <!-- Decrease -->
+            <ion-icon *ngIf="change.changeType === 'Decrease'" name="arrow-down-outline" class="change-icon decrease"></ion-icon>
+            <!-- Add New -->
+            <ion-icon *ngIf="change.changeType === 'AddNew'" name="add-circle-outline" class="change-icon addnew"></ion-icon>
+            <!-- Delete/Out of Stock -->
+            <ion-icon *ngIf="change.changeType === 'Delete' || change.changeType === 'OutOfStock'" name="trash-outline" class="change-icon delete"></ion-icon>
+            <ion-label class="change-label">{{ change.changeType }}</ion-label>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card-content>
+</ion-card>
+
+<!-- Approval Details Section -->
+<ion-card class="approval-card">
+  <ion-card-header class="card-header">
+    <ion-card-title class="card-title">Approval Details</ion-card-title>
+  </ion-card-header>
+  <ion-card-content class="card-content">
+    <ion-grid>
+      <ion-row class="data-row">
+        <ion-col size="4">
+          <div class="info-label">Approved By</div>
+          <ng-template *ngIf="req.status === RequestStatus.Approved">
+            <div class="info-value">{{ req.approvedBy }}</div>
+          </ng-template>
+        </ion-col>
+        <ion-col size="4">
+          <div class="info-label">Approval Date</div>
+          <ng-template *ngIf="req.status === RequestStatus.Approved">
+            <div class="info-value">{{ req.approvalDate | date:'mediumDate' }}</div>
+          </ng-template>
+        </ion-col>
+        <ion-col size="4">
+          <div class="info-label">Source</div>
+          <div class="info-value">{{ req.requestSource }}</div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card-content>
+</ion-card>

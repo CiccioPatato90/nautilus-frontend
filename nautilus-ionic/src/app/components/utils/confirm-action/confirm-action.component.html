@@ -1,0 +1,31 @@
+<!-- confirm-modal.component.html -->
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>{{ title }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancel()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <p>{{ description }}</p>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button expand="block" color="primary" (click)="confirm()">
+          <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+          Yes
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button expand="block" color="medium" (click)="cancel()">
+          <ion-icon name="close-circle-outline" slot="start"></ion-icon>
+          No
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

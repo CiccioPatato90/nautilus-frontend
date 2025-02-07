@@ -1,0 +1,44 @@
+<ion-accordion-group>
+  <ion-accordion value="filters">
+    <ion-item slot="header">
+      <ion-label>Filters</ion-label>
+      <ion-icon name="options-outline" slot="end"></ion-icon>
+    </ion-item>
+
+    <div slot="content">
+      <ion-card>
+
+        <ion-card-content>
+
+          <ion-segment value="status">
+            <ion-segment-button value="default" *ngFor="let stat of requestStatus" (change)="changeStatus($event)">
+              <ion-label>{{stat}}</ion-label>
+            </ion-segment-button>
+          </ion-segment>
+
+          <ion-item *ngFor="let field of filterFields">
+            <ng-container [ngSwitch]="field.type">
+              <!-- Text Filter -->
+              <ion-input *ngSwitchCase="'text'"
+                         placeholder="Enter {{ field.label }}"
+                         (ionInput)="filtersChanged($event, field.key)">
+              </ion-input>
+
+              <!-- Select Filter -->
+              <ion-select *ngSwitchCase="'select'"
+                          (ionChange)="filtersChanged($event, field.key)">
+<!--                <ion-select-option *ngFor="let option of field."-->
+<!--                                   [value]="option">{{ option }}</ion-select-option>-->
+              </ion-select>
+
+              <!-- Date Filter -->
+              <ion-datetime *ngSwitchCase="'date'"
+                            (ionChange)="filtersChanged($event, field.key)">
+              </ion-datetime>
+            </ng-container>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </ion-accordion>
+</ion-accordion-group>

@@ -1,0 +1,71 @@
+/* Contact Card Component Styles */
+.contact-card {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  margin: 16px;
+  background: var(--card-background); /* Use global variable for card background */
+}
+
+.contact-card .card-header {
+  background: linear-gradient(135deg, var(--primary-gradient-start), var(--primary-gradient-end));
+  color: #fff;
+  padding: 16px;
+}
+
+.contact-card .card-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.contact-card .header-icon {
+  margin-right: 8px;
+  font-size: 1.5em;
+}
+
+.contact-card .card-content {
+  padding: 16px;
+  background: var(--background-color); /* Use global light gray background */
+}
+
+.contact-card .info-row {
+  margin-bottom: 12px;
+}
+
+.contact-card .info-label {
+  font-weight: bold;
+  color: var(--text-color); /* Dark text for contrast */
+  font-size: 1.2em;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.contact-card .info-value {
+  color: var(--secondary-text-color);
+  font-size: 1.2em;
+  display: flex;
+  align-items: center;
+}
+
+.contact-card .info-icon {
+  margin-right: 8px;
+  font-size: 1.5em;
+  color: var(--accent-color); /* Accent color for icons */
+}
+
+.contact-card .download-link {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.contact-card .download-link:hover {
+  text-decoration: underline;
+}
+
+.contact-card .download-icon {
+  margin-right: 4px;
+  font-size: 1.2em;
+}

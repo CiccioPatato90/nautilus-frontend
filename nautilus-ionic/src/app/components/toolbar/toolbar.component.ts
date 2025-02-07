@@ -10,10 +10,10 @@ import {NavController} from "@ionic/angular";
 export class ToolbarComponent {
   @Input() title: string = 'App Title';
 
+
   constructor(private router: NavController) {}
 
   goBack() {
-    this.router.pop(); // Navigates to the previous page
-    // window.history.back()
+    this.router.back();
   }
 }

@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: RequestsPage
+  },
+  {
+    path: 'get/:id',
+    loadChildren: () => import('./request-detail/request-detail.module').then( m => m.RequestDetailPageModule)
   }
 ];
 
