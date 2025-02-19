@@ -1,0 +1,15 @@
+export * from './associationSettingsController.service';
+import { AssociationSettingsControllerService } from './associationSettingsController.service';
+export * from './authController.service';
+import { AuthControllerService } from './authController.service';
+export * from './itemSettingsController.service';
+import { ItemSettingsControllerService } from './itemSettingsController.service';
+export * from './projectsController.service';
+import { ProjectsControllerService } from './projectsController.service';
+export * from './requestController.service';
+import { RequestControllerService } from './requestController.service';
+export * from './settingsController.service';
+import { SettingsControllerService } from './settingsController.service';
+export * from './virtualWarehouseController.service';
+import { VirtualWarehouseControllerService } from './virtualWarehouseController.service';
+export const APIS = [AssociationSettingsControllerService, AuthControllerService, ItemSettingsControllerService, ProjectsControllerService, RequestControllerService, SettingsControllerService, VirtualWarehouseControllerService];

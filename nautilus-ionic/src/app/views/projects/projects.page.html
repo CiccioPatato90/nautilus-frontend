@@ -1,0 +1,38 @@
+<ion-content [fullscreen]="true" *ngIf="projectRequestList">
+  <ion-list>
+      <ion-accordion-group>
+        <ion-accordion>
+          <ion-item slot="header">
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <app-label [text]="ProjectStatus.Allocated" [description]="'Status'"></app-label>
+                </ion-col>
+                <ion-col>
+                  <app-label [text]="projectRequestList.length" [description]="'Count'"></app-label>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+          <ion-item *ngFor="let project of projectRequestList" [detail]="true" slot="content" button (click)="onProjectClick(project)">
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <app-label [text]="project.projectName" [description]="'Project Name'"></app-label>
+                </ion-col>
+                <ion-col>
+                  <app-label [text]="project.associationName" [description]="'Proposed By'"></app-label>
+                </ion-col>
+                <ion-col>
+                  <app-label [text]="project.createdAt | date" [description]="'Created At'"></app-label>
+                </ion-col>
+                <ion-col>
+                  <app-label [text]="project.allocatedResources?.completionPercentage + '%'" [description]="'Simulated Feasibility'"></app-label>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+        </ion-accordion>
+      </ion-accordion-group>
+  </ion-list>
+</ion-content>

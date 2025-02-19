@@ -1,0 +1,24 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  padding: 16px;
+}
+
+ion-header {
+  --background: linear-gradient(45deg, var(--primary-gradient-start), var(--primary-gradient-end));
+}
+
+
+.planning-badge {
+  background: var(--inventory-request-color);
+  margin-left: 8px;
+}
+
+.execution-badge {
+  background: var(--association-request-color);
+  margin-left: 8px;
+}
+
+.project-details {
+  padding: 16px;
+}

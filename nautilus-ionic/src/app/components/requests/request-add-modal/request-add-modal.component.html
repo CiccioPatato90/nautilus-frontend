@@ -1,0 +1,50 @@
+<ion-label *ngIf="type">{{"Add new " + type + " request."}}</ion-label>
+<ion-list>
+  <!-- Association Selection -->
+  <ion-item>
+    <ion-label>Association</ion-label>
+    <ion-select interface="action-sheet" [(ngModel)]="selectedAssoc">
+      <ion-select-option *ngFor="let assoc of associations" [value]="assoc">
+        {{ assoc.name }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <!-- Multiple Items Selection -->
+  <ion-item>
+    <ion-label>Items</ion-label>
+    <ion-select interface="action-sheet" multiple [(ngModel)]="selectedItems">
+      <ion-select-option *ngFor="let item of items" [value]="item">
+        {{ item.name }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <!-- Quantity Inputs for Selected Items -->
+  <ng-container *ngFor="let item of selectedItems">
+    <ion-item>
+      <ion-label>{{ item.name }}</ion-label>
+
+      <ion-input
+        type="number"
+        [(ngModel)]="item.quantity"
+        min="1"
+        placeholder="Enter quantity"
+        slot="end"
+        style="max-width: 100px; text-align: center;">
+      </ion-input>
+    </ion-item>
+  </ng-container>
+
+  <ion-input
+    type="number"
+    [(ngModel)]="chosenBudget"
+    min="1"
+    placeholder="Enter quantity"
+    slot="end"
+    style="max-width: 100px; text-align: center;">
+  </ion-input>
+
+  <ion-button (click)="saveRequest()"></ion-button>
+
+</ion-list>
