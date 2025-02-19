@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { AssocMgmtPageRoutingModule } from './assoc-mgmt-routing.module';
+import { AssocMgmtPageRoutingModule } from './associations-settings-routing.module';
 
-import { AssocMgmtPage } from './assoc-mgmt.page';
+import { AssociationSettingsPage } from './associations-settings-page.component';
 import {ComponentsModule} from "../../../components/components.module";
 
 @NgModule({
@@ -18,8 +18,8 @@ import {ComponentsModule} from "../../../components/components.module";
         ComponentsModule
     ],
     exports: [
-        AssocMgmtPage
+        AssociationSettingsPage
     ],
-    declarations: [AssocMgmtPage]
+    declarations: [AssociationSettingsPage]
 })
 export class AssocMgmtPageModule {}

@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AssociationDetailPage } from './association-detail.page';
+import { AssociationSettingsDetailPage } from './association-settings-detail-page.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: AssociationDetailPage
+    component: AssociationSettingsDetailPage
   }
 ];
 

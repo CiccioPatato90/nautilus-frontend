@@ -13,6 +13,10 @@ import {
   AssociationRequestDetailCardComponent
 } from "./requests/association-request-detail-card/association-request-detail-card.component";
 import {ConfirmActionComponent} from "./utils/confirm-action/confirm-action.component";
+import {MapComponent} from "./map/map.component";
+import {RequestAddModalComponent} from "./requests/request-add-modal/request-add-modal.component";
+import {ProjectRequestsComponent} from "./requests/project-requests/project-requests.component";
+import {LabelComponent} from "./granular/label/label.component";
 
 @NgModule({
   declarations: [
@@ -23,7 +27,11 @@ import {ConfirmActionComponent} from "./utils/confirm-action/confirm-action.comp
     RequestsFilterComponent,
     InventoryItemCardComponent,
     AssociationRequestDetailCardComponent,
-    ConfirmActionComponent
+    ConfirmActionComponent,
+    MapComponent,
+    RequestAddModalComponent,
+    ProjectRequestsComponent,
+    LabelComponent
   ],
   imports: [CommonModule, IonicModule, ReactiveFormsModule, FormsModule, RouterLink],
   exports:
@@ -35,7 +43,11 @@ import {ConfirmActionComponent} from "./utils/confirm-action/confirm-action.comp
       RequestsFilterComponent,
       InventoryItemCardComponent,
       AssociationRequestDetailCardComponent,
-      ConfirmActionComponent
+      ConfirmActionComponent,
+      MapComponent,
+      RequestAddModalComponent,
+      ProjectRequestsComponent,
+      LabelComponent
     ],
 })
 export class ComponentsModule { }

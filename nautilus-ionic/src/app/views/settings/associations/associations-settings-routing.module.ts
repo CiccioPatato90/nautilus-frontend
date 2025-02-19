@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AssocMgmtPage } from './assoc-mgmt.page';
+import { AssociationSettingsPage } from './associations-settings-page.component';
 import {AssociationDetailPageModule} from "./association-detail/association-detail.module";
-import {AssociationDetailPage} from "./association-detail/association-detail.page";
+import {AssociationSettingsDetailPage} from "./association-detail/association-settings-detail-page.component";
 
 const routes: Routes = [
   {
     path: '',
-    component: AssocMgmtPage,
+    component: AssociationSettingsPage,
   },
   {
     // children: [
@@ -19,7 +19,7 @@ const routes: Routes = [
     //   },
     // ],
     path: 'get/:id',
-    component: AssociationDetailPage
+    component: AssociationSettingsDetailPage
   },
 
 ];

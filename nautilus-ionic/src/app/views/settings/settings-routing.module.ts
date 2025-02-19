@@ -14,7 +14,7 @@ const routes: Routes = [
       },
       {
         path: 'assoc-mgmt',
-        loadChildren: () => import('./assoc-mgmt/assoc-mgmt.module').then( m => m.AssocMgmtPageModule),
+        loadChildren: () => import('./associations/associations-settings.module').then(m => m.AssocMgmtPageModule),
       },
       {
         path: 'assoc-inventory',

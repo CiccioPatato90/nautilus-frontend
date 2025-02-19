@@ -6,7 +6,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { AssociationDetailPageRoutingModule } from './association-detail-routing.module';
 
-import { AssociationDetailPage } from './association-detail.page';
+import { AssociationSettingsDetailPage } from './association-settings-detail-page.component';
 import {ComponentsModule} from "../../../../components/components.module";
 
 @NgModule({
@@ -18,6 +18,6 @@ import {ComponentsModule} from "../../../../components/components.module";
     ComponentsModule,
     ReactiveFormsModule
   ],
-  declarations: [AssociationDetailPage]
+  declarations: [AssociationSettingsDetailPage]
 })
 export class AssociationDetailPageModule {}

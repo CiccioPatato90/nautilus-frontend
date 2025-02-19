@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject} from "rxjs";
-import {Utente} from "../../api/model/utente";
 import {RequestFilter} from "../../api";
 
 @Injectable({

@@ -1,14 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  BaseRequest,
+  AssociationDTO,
   RequestControllerService,
   RequestFilter,
   RequestListResponse,
   RequestStatus,
   RequestType
 } from "../../api";
-import {JoinRequestDto} from "../../api/model/joinRequestDto";
 import {RequestsFilterService} from "../../services/requests/requests-filter.service";
+import {
+  AddAssociationModalComponent
+} from "../../components/modals/add-association-modal/add-association-modal.component";
+import {ModalController} from "@ionic/angular";
+import {RequestAddModalComponent} from "../../components/requests/request-add-modal/request-add-modal.component";
 
 @Component({
   selector: 'app-requests',
@@ -22,12 +26,14 @@ export class RequestsPage implements OnInit {
   requestTypes = Object.values(RequestType);
 
   requestResponse: RequestListResponse = {} as RequestListResponse;
+
   constructor(private requestController: RequestControllerService,
-              private requestFilterService: RequestsFilterService) { }
+              private requestFilterService: RequestsFilterService,
+              private modalCtrl : ModalController) { }
 
   ngOnInit() {
     this.filters = Object.assign({} as RequestFilter, {
-      requestType: RequestType.OrganizationJoinRequest,
+      requestType: RequestType.AssociationRequest,
       status: RequestStatus.Pending
     } as RequestFilter);
 
@@ -54,4 +60,19 @@ export class RequestsPage implements OnInit {
     this.loadJoinRequests();
   }
 
+  protected readonly RequestType = RequestType;
+
+  async openAddModal(requestType: RequestType | undefined) {
+    const modal = await this.modalCtrl.create({
+      component: RequestAddModalComponent,
+      componentProps: { requestType: requestType, isEdit: false }
+    });
+    await modal.present();
+
+    const { data } = await modal.onDidDismiss();
+    if (data) {
+      // const result: AssociationDTO = data.association;
+      // this.addAssociation(result);
+    }
+  }
 }

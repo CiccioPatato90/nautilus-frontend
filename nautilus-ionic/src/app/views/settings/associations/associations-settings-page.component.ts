@@ -1,21 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import {Association, AssociationMgmtControllerService} from "../../../api";
 import {ModalController} from "@ionic/angular";
 import {Router} from "@angular/router";
 import {
   AddAssociationModalComponent
 } from "../../../components/modals/add-association-modal/add-association-modal.component";
+import {AssociationDTO, AssociationSettingsControllerService} from "../../../api";
 
 @Component({
   selector: 'app-assoc-mgmt',
-  templateUrl: './assoc-mgmt.page.html',
-  styleUrls: ['./assoc-mgmt.page.scss'],
+  templateUrl: './associations-settings-page.component.html',
+  styleUrls: ['./associations-settings-page.component.scss'],
 })
-export class AssocMgmtPage implements OnInit {
+export class AssociationSettingsPage implements OnInit {
 
-  associations: Association[] = [];
+  associations: AssociationDTO[] = [];
 
-  constructor(private associationControllerService: AssociationMgmtControllerService,
+  constructor(private associationControllerService: AssociationSettingsControllerService,
               private modalCtrl: ModalController, private router: Router) {}
 
   ngOnInit() {
@@ -30,7 +30,7 @@ export class AssocMgmtPage implements OnInit {
   }
 
 
-  addAssociation(data: Association) {
+  addAssociation(data: AssociationDTO) {
     this.associationControllerService.apiSettingsAssocMgmtAddPost(data).subscribe({
       next: (response) => {
         console.log('Added:', response);
@@ -43,7 +43,7 @@ export class AssocMgmtPage implements OnInit {
     });
   }
 
-  private editAssociation(data: Association) {
+  private editAssociation(data: AssociationDTO) {
     this.associationControllerService.apiSettingsAssocMgmtEditPost(data).subscribe({
       next: (response) => {
         console.log('Edited:', response);
@@ -72,12 +72,12 @@ export class AssocMgmtPage implements OnInit {
 
     const { data } = await modal.onDidDismiss();
     if (data) {
-      const result: Association = data.association;
+      const result: AssociationDTO = data.association;
       this.addAssociation(result);
     }
   }
 
-  async openEditModal(assoc: Association) {
+  async openEditModal(assoc: AssociationDTO) {
     const modal = await this.modalCtrl.create({
       component: AddAssociationModalComponent,
       componentProps: { assoc: assoc, isEdit: true }
@@ -86,7 +86,7 @@ export class AssocMgmtPage implements OnInit {
 
     const { data } = await modal.onDidDismiss();
     if (data) {
-      const result: Association= data.association;
+      const result: AssociationDTO = data.association;
       this.editAssociation(result);
     }
   }
@@ -119,7 +119,7 @@ export class AssocMgmtPage implements OnInit {
   }
 
 
-  getImage(assoc: Association) {
+  getImage(assoc: AssociationDTO) {
     if(assoc.img64){
       return `data:image/png;base64,${assoc.img64}`
     }

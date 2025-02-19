@@ -72,7 +72,7 @@
 
 <div [ngSwitch]="req.requestType">
   <app-inventory-item-card *ngSwitchCase="RequestType.InventoryRequest" [req]="req"></app-inventory-item-card>
-  <app-association-request-detail-card *ngSwitchCase="RequestType.OrganizationJoinRequest" [req]="req"></app-association-request-detail-card>
+  <app-association-request-detail-card *ngSwitchCase="RequestType.AssociationRequest" [req]="req"></app-association-request-detail-card>
 </div>
 
 

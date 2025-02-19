@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {InventoryRequest, JoinRequest, RequestFilter} from "../../../api";
+import {InventoryRequest} from "../../../api";
 import {RequestsFilterService} from "../../../services/requests/requests-filter.service";
 import {Router} from "@angular/router";
 
@@ -11,7 +11,7 @@ import {Router} from "@angular/router";
 export class InventoryRequestsComponent  implements OnInit {
   @Input() request: InventoryRequest = {} as InventoryRequest;
 
-  constructor(private requestFilterService: RequestsFilterService, private router:Router) { }
+  constructor(private requestFilterService: RequestsFilterService, private router: Router) { }
 
   ngOnInit() {
     return
@@ -20,7 +20,7 @@ export class InventoryRequestsComponent  implements OnInit {
 
   formatTimestamp(timestamp: string | undefined): string {
     if (!timestamp) return 'N/A';
-    return new Date(timestamp).toLocaleString(); // Example: Converts to "Jan 30, 2025, 11:16 AM"
+    return new Date(timestamp).toLocaleString();
   }
 
   // Function to assign status colors

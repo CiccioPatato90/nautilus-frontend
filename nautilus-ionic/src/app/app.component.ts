@@ -1,17 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {MenuController} from "@ionic/angular";
 import {KeycloakService} from "./services/keycloak.service";
-import {AuthControllerService, Tab} from "./api";
-import {Utente} from "./api/model/utente";
+import {AuthControllerService, TabDTO} from "./api";
+import {KeycloakProfile} from "keycloak-js";
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  userInfo : Utente = {} as Utente;
+  userInfo : KeycloakProfile = {} as KeycloakProfile;
 
-  public appPages: Tab[] = [];
+  public appPages: TabDTO[] = [];
 
   constructor(private menu: MenuController,
               private keycloakService: KeycloakService,

@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {
   BaseRequest,
-  JoinRequest,
+  AssociationRequest,
   RequestControllerService, RequestFilter,
 } from "../../../api";
 import {RequestsFilterService} from "../../../services/requests/requests-filter.service";
@@ -15,7 +15,7 @@ import {Router} from "@angular/router";
 })
 export class AssociationRequestsComponent implements OnInit {
 
-  @Input() request: JoinRequest = {} as JoinRequest;
+  @Input() request: AssociationRequest = {} as AssociationRequest;
 
   constructor(private requestFilterService: RequestsFilterService, private router:Router) { }
 

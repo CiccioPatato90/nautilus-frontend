@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {SettingsControllerService, Tab} from "../../api";
+import {SettingsControllerService, TabDTO} from "../../api";
 import {Router} from "@angular/router";
 
 @Component({
@@ -9,7 +9,7 @@ import {Router} from "@angular/router";
 })
 export class SettingsPage implements OnInit {
 
-  settingsTabs: Tab[] = [];
+  settingsTabs: TabDTO[] = [];
 
   constructor(private settingsController: SettingsControllerService, private router:Router) { }
 

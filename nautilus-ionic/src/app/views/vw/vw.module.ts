@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { VwPageRoutingModule } from './vw-routing.module';
 
 import { VwPage } from './vw.page';
+import {ComponentsModule} from "../../components/components.module";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    VwPageRoutingModule
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        VwPageRoutingModule,
+        ComponentsModule
+    ],
   declarations: [VwPage]
 })
 export class VwPageModule {}

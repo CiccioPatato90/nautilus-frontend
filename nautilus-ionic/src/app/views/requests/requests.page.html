@@ -14,6 +14,8 @@
     </ion-segment-button>
   </ion-segment>
 
+  <ion-button (click)="openAddModal(filters.requestType)" *ngIf="filters.requestType === RequestType.ProjectRequest">Generate New {{filters.requestType}}</ion-button>
+
   <app-requests-filter [filters]="filters"></app-requests-filter>
 
   <!-- Request List Accordion Content -->
@@ -21,8 +23,10 @@
     <ion-row>
       <ion-col size="6" *ngFor="let req of requestResponse.allRequests">
         <div [ngSwitch]="req.requestType">
-          <app-association-requests *ngSwitchCase="'ORGANIZATION_JOIN_REQUEST'" [request]="req"></app-association-requests>
-          <app-inventory-requests *ngSwitchCase="'INVENTORY_REQUEST'" [request]="req"></app-inventory-requests>
+          <app-association-requests *ngSwitchCase="RequestType.AssociationRequest" [request]="req"></app-association-requests>
+<!--            TODO: CHANGE THIS IN THE FUTURE TO COMPONENT-->
+          <app-project-requests *ngSwitchCase="RequestType.ProjectRequest" [request]="req"></app-project-requests>
+          <app-inventory-requests *ngSwitchCase="RequestType.InventoryRequest" [request]="req"></app-inventory-requests>
         </div>
       </ion-col>
     </ion-row>

@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ModalController} from "@ionic/angular";
-import {Association} from "../../../api";
+import {AssociationDTO} from "../../../api";
 import {DynamicFormService} from "../../../utils/dynamic-form.service";
 import {FormGroup, Validators} from "@angular/forms";
 
@@ -9,9 +9,9 @@ import {FormGroup, Validators} from "@angular/forms";
   templateUrl: './add-association-modal.component.html',
   styleUrls: ['./add-association-modal.component.scss'],
 })
-export class AddAssociationModalComponent  implements OnInit {
+export class AddAssociationModalComponent implements OnInit {
 
-  @Input() assoc: Association = {} as Association;
+  @Input() assoc: AssociationDTO = {} as AssociationDTO;
   @Input() isEdit: boolean = false;
   associationForm!: FormGroup;
   formFields: string[] = [];
@@ -49,7 +49,7 @@ export class AddAssociationModalComponent  implements OnInit {
 
   confirm() {
     if (this.associationForm.valid) {
-      const result: Association = {
+      const result: AssociationDTO = {
         ...this.associationForm.value,
         img64: this.selectedImage,
       };

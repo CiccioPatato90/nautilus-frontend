@@ -1,21 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {Association, AssociationMgmtControllerService} from "../../../../api";
 import {FormControl, FormGroup} from "@angular/forms";
+import {AssociationDTO, AssociationSettingsControllerService} from "../../../../api";
 
 @Component({
   selector: 'app-association-detail',
-  templateUrl: './association-detail.page.html',
-  styleUrls: ['./association-detail.page.scss'],
+  templateUrl: './association-settings-detail-page.component.html',
+  styleUrls: ['./association-settings-detail-page.component.scss'],
 })
-export class AssociationDetailPage implements OnInit {
+export class AssociationSettingsDetailPage implements OnInit {
 
   associationId: string | null = null;
-  association: Association = {} as Association;
+  association: AssociationDTO = {} as AssociationDTO;
   form!: FormGroup;
 
 
-  constructor(private associationController: AssociationMgmtControllerService, private activatedRoute: ActivatedRoute) {}
+  constructor(private associationController: AssociationSettingsControllerService, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
     this.associationId = this.activatedRoute.snapshot.paramMap.get('id'); // Get ID from URL
@@ -46,7 +46,7 @@ export class AssociationDetailPage implements OnInit {
   }
 
   fromFormToModel() {
-    return Object.assign({} as Association, {
+    return Object.assign({} as AssociationDTO, {
       id: this.association?.id,
       name: this.form.get('name')?.value,
       address: this.form.get('address')?.value,
@@ -55,7 +55,7 @@ export class AssociationDetailPage implements OnInit {
       website: this.form.get('website')?.value,
       remarks: this.form.get('remarks')?.value,
       img64: this.form.get('img64')?.value,
-    } as Association);
+    } as AssociationDTO);
 
   }
 

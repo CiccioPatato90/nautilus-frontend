@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Association, AssociationMgmtControllerService, RequestFilter, RequestStatus, RequestType} from "../../../api";
 import {RequestsFilterService} from "../../../services/requests/requests-filter.service";
+import {AssociationDTO, AssociationSettingsControllerService, RequestFilter, RequestStatus} from "../../../api";
 
 @Component({
   selector: 'app-requests-filter',
@@ -10,7 +10,7 @@ import {RequestsFilterService} from "../../../services/requests/requests-filter.
 export class RequestsFilterComponent  implements OnInit {
 
   @Input() filters: RequestFilter = {} as RequestFilter;
-  assocList: Association[] = [];
+  assocList: AssociationDTO[] = [];
 
   requestStatus = Object.values(RequestStatus);
 
@@ -24,7 +24,7 @@ export class RequestsFilterComponent  implements OnInit {
     { key: 'dateTo', label: 'Date To', type: 'date' },
   ];
 
-  constructor(private requestFilterService: RequestsFilterService, private associationService: AssociationMgmtControllerService) { }
+  constructor(private requestFilterService: RequestsFilterService, private associationService: AssociationSettingsControllerService) { }
 
   ngOnInit() {
     // this.requestFilterService.filters$.subscribe(filters => {

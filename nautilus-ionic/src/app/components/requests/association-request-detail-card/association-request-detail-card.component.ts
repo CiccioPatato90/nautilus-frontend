@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {JoinRequest} from "../../../api";
+import {AssociationRequest} from "../../../api";
 
 @Component({
   selector: 'app-association-request-detail-card',
@@ -7,7 +7,7 @@ import {JoinRequest} from "../../../api";
   styleUrls: ['./association-request-detail-card.component.scss'],
 })
 export class AssociationRequestDetailCardComponent  implements OnInit {
-  @Input() req: JoinRequest = {} as JoinRequest;
+  @Input() req: AssociationRequest = {} as AssociationRequest;
 
   constructor() { }
 

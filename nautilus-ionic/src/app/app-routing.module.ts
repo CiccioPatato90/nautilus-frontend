@@ -19,6 +19,10 @@ const routes: Routes = [
   {
     path: 'vw',
     loadChildren: () => import('./views/vw/vw.module').then( m => m.VwPageModule)
+  },
+  {
+    path: 'projects',
+    loadChildren: () => import('./views/projects/projects.module').then( m => m.ProjectsPageModule)
   }
 ];
 

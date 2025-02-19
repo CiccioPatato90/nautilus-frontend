@@ -1,7 +1,5 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {InventoryItem, InventoryItemCategory, ItemMgmtControllerService} from "../../../api";
-import Chart from 'chart.js/auto';
-import {JoinRequestDto} from "../../../api/model/joinRequestDto";
+import {InventoryItemCategoryDTO, InventoryItemDTO, ItemSettingsControllerService} from "../../../api";
 
 @Component({
   selector: 'app-item-mgmt',
@@ -9,9 +7,8 @@ import {JoinRequestDto} from "../../../api/model/joinRequestDto";
   styleUrls: ['./item-mgmt.page.scss'],
 })
 export class ItemMgmtPage implements OnInit{
-  items : InventoryItem[] = [];
-  itemCategories : InventoryItemCategory[] = [];
-  inventoryChart: any;
+  items : InventoryItemDTO[] = [];
+  itemCategories : InventoryItemCategoryDTO[] = [];
 
   inventoryItems: { [key: string]: string[] } = {
     "Strumentazione Medica": [
@@ -51,8 +48,7 @@ export class ItemMgmtPage implements OnInit{
     ]
   };
 
-
-  constructor(private itemMgmtController: ItemMgmtControllerService) { }
+  constructor(private itemMgmtController: ItemSettingsControllerService) { }
 
   ngOnInit() {
     this.itemMgmtController.apiSettingsItemMgmtGet().subscribe(response => {
@@ -62,17 +58,12 @@ export class ItemMgmtPage implements OnInit{
 
   }
 
-  // ngAfterViewInit(){
-  //   this.initChart(); // Update the chart
-  // }
-
-
 
   generateMockItem($event: any) {
 
     $event.stopPropagation();
 
-    const generatedItems: InventoryItem[] = [];
+    const generatedItems: InventoryItemDTO[] = [];
     let idCounter = 1;
 
     for (let i = 0; i < 15; i++) {
@@ -82,16 +73,13 @@ export class ItemMgmtPage implements OnInit{
 
       const itemName = this.inventoryItems[randomCategory][Math.floor(Math.random() * this.inventoryItems[randomCategory].length)];
 
-      generatedItems.push(Object.assign({} as InventoryItem, {
+      generatedItems.push(Object.assign({} as InventoryItemDTO, {
         id: idCounter++,
         name: itemName,
-        itemCategory: Object.assign({} as InventoryItemCategory, { id: categoryIndex, name: randomCategory } as InventoryItemCategory)
-      } as InventoryItem));
+        itemCategory: Object.assign({} as InventoryItemCategoryDTO, { id: categoryIndex, name: randomCategory } as InventoryItemCategoryDTO)
+      } as InventoryItemDTO));
     }
 
-
-    // const inventoryList = generateInventoryItems(10); // Generate 10 items
-    // console.log(generatedItems);
 
     generatedItems.forEach(item => {
       this.itemMgmtController.apiSettingsItemMgmtAddPost(item).subscribe(value => {
@@ -103,47 +91,4 @@ export class ItemMgmtPage implements OnInit{
   filterItems() {
 
   }
-
-  // initChart() {
-  //   if (!this.items || this.items.length === 0) {
-  //     console.warn('No items found. Chart will not render.');
-  //     return;
-  //   }
-  //
-  //   const ctx = document.getElementById('inventoryChart') as HTMLCanvasElement;
-  //
-  //   // Count items per category
-  //   const categoryCounts: { [key: string]: number } = {};
-  //   this.items.forEach(item => {
-  //     if (item.itemCategory?.name) {
-  //       categoryCounts[item.itemCategory.name] = (categoryCounts[item.itemCategory.name] || 0) + 1;
-  //     }
-  //   });
-  //
-  //   const categoryLabels = Object.keys(categoryCounts);
-  //   const categoryData = Object.values(categoryCounts);
-  //
-  //   // Check if categoryLabels and categoryData are empty
-  //   if (categoryLabels.length === 0 || categoryData.length === 0) {
-  //     console.warn('No valid categories found. Chart will not render.');
-  //     return;
-  //   }
-  //
-  //   // Destroy previous chart instance (to avoid overlapping)
-  //   if (this.inventoryChart) {
-  //     this.inventoryChart.destroy();
-  //   }
-  //
-  //   // Create new chart
-  //   this.inventoryChart = new Chart(ctx, {
-  //     type: 'pie',
-  //     data: {
-  //       labels: categoryLabels,
-  //       datasets: [{
-  //         data: categoryData,
-  //         backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4CAF50', '#FF9800']
-  //       }]
-  //     }
-  //   });
-  // }
 }
