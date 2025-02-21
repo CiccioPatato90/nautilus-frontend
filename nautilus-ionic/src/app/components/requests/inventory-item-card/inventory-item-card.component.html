@@ -13,12 +13,12 @@
       </ion-row>
       <!-- Table Data -->
       <ion-row *ngFor="let change of req.inventoryChanges" class="data-row">
-        <ion-col size="3">
-          <div class="data-value">{{ change.itemName }}</div>
-        </ion-col>
-        <ion-col size="3">
-          <div class="data-value">{{ change.previousQuantity }}</div>
-        </ion-col>
+<!--        <ion-col size="3">-->
+<!--          <div class="data-value">{{ change.itemName }}</div>-->
+<!--        </ion-col>-->
+<!--        <ion-col size="3">-->
+<!--          <div class="data-value">{{ change.previousQuantity }}</div>-->
+<!--        </ion-col>-->
         <ion-col size="3">
           <div class="data-value">{{ change.requestedQuantity }}</div>
         </ion-col>
@@ -57,12 +57,8 @@
         <ion-col size="4">
           <div class="info-label">Approval Date</div>
           <ng-template *ngIf="req.status === RequestStatus.Approved">
-            <div class="info-value">{{ req.approvalDate | date:'mediumDate' }}</div>
+            <div class="info-value">{{ req.updatedAt | date:'mediumDate' }}</div>
           </ng-template>
-        </ion-col>
-        <ion-col size="4">
-          <div class="info-label">Source</div>
-          <div class="info-value">{{ req.requestSource }}</div>
         </ion-col>
       </ion-row>
     </ion-grid>

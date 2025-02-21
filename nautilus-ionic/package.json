@@ -5,8 +5,8 @@
   "homepage": "https://ionicframework.com/",
   "scripts": {
     "ng": "ng",
-    "start": "generate-client && ng serve",
-    "build": "generate-client && ng build",
+    "start": "ionic serve",
+    "build": "ng build",
     "generate-client": "openapi-generator-cli generate -i http://localhost:8080/q/openapi -g typescript-angular -o src/app/api",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",

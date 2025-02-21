@@ -1,11 +1,4 @@
 
-<!--<ion-content>-->
-<!--&lt;!&ndash;  <ion-button (click)="mockAddRequest()"></ion-button>&ndash;&gt;-->
-<!--  <app-join-requests></app-join-requests>-->
-<!--</ion-content>-->
-
-
-
 <ion-content>
 
   <ion-segment [(ngModel)]="filters.requestType" (ionChange)="filterTypeChanged($event)">
@@ -14,22 +7,14 @@
     </ion-segment-button>
   </ion-segment>
 
-  <ion-button (click)="openAddModal(filters.requestType)" *ngIf="filters.requestType === RequestType.ProjectRequest">Generate New {{filters.requestType}}</ion-button>
+<!--  TODO: FILTERS!!!!-->
+<!--  <app-requests-filter [filters]="filters"></app-requests-filter>-->
 
-  <app-requests-filter [filters]="filters"></app-requests-filter>
+  <div [ngSwitch]="filters.requestType" *ngIf="requestResponse">
+    <app-association-requests *ngSwitchCase="RequestType.AssociationRequest" [requestResponse]="requestResponse" (addRequestEvent)="addRequest($event)"></app-association-requests>
+    <app-project-requests *ngSwitchCase="RequestType.ProjectRequest" [requestResponse]="requestResponse" (addRequestEvent)="addRequest($event)"></app-project-requests>
+    <app-inventory-requests *ngSwitchCase="RequestType.InventoryRequest" [requestResponse]="requestResponse" (addRequestEvent)="addRequest($event)"></app-inventory-requests>
+  </div>
 
-  <!-- Request List Accordion Content -->
-  <ion-grid>
-    <ion-row>
-      <ion-col size="6" *ngFor="let req of requestResponse.allRequests">
-        <div [ngSwitch]="req.requestType">
-          <app-association-requests *ngSwitchCase="RequestType.AssociationRequest" [request]="req"></app-association-requests>
-<!--            TODO: CHANGE THIS IN THE FUTURE TO COMPONENT-->
-          <app-project-requests *ngSwitchCase="RequestType.ProjectRequest" [request]="req"></app-project-requests>
-          <app-inventory-requests *ngSwitchCase="RequestType.InventoryRequest" [request]="req"></app-inventory-requests>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
 
 </ion-content>

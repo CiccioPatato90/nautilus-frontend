@@ -9,13 +9,21 @@
  */
 import { InventoryChangeDTO } from './inventoryChangeDTO';
 import { ObjectId } from './objectId';
+import { RequestStatus } from './requestStatus';
 
 
 export interface InventoryRequestDTO { 
     _id?: ObjectId;
+    associationReqId?: string;
+    associationSqlId?: number;
+    status?: RequestStatus;
+    updatedAt?: string;
+    createdAt?: string;
     inventoryChanges?: Array<InventoryChangeDTO>;
+    inventoryState?: { [key: string]: number; };
     approvedBy?: string;
-    approvalDate?: string;
-    requestSource?: string;
 }
+export namespace InventoryRequestDTO {
+}
+
 

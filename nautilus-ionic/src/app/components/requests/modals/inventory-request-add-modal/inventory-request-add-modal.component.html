@@ -1,0 +1,98 @@
+<ion-list>
+
+  <ion-label>{{"Add new Inventory request."}}</ion-label>
+
+  <ion-grid>
+
+        <ion-row>
+          <ion-col>
+            <ion-label>Association</ion-label>
+            <ion-select interface="action-sheet" (ionChange)="initState($event.detail.value)">
+              <ion-select-option *ngFor="let assoc of associations" [value]="assoc">
+                {{ assoc.name }}
+              </ion-select-option>
+            </ion-select>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-accordion-group *ngIf="selectedAssoc">
+            <ion-accordion *ngFor="let box of selectedAssoc.inventoryBoxes">
+              <ion-item slot="header">
+                <ion-grid>
+                  <ion-row>
+                    <ion-col>
+                      <app-label [text]="box.currentSize" [description]="'Current Size'" ></app-label>
+                    </ion-col>
+                    <ion-col>
+                      <app-label [text]="box.fkSize?.maxSize" [description]="'Max Size'" ></app-label>
+                    </ion-col>
+                    <ion-col>
+                      <app-label [text]="box.fkWarehouse?.location" [description]="'Warehouse location'" ></app-label>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-item>
+
+              <ion-item slot="content" *ngFor="let item of box.inventoryItems">
+                <ion-grid>
+                  <ion-row>
+                    <ion-col>
+                      <app-label [text]="item.name" [description]="'Item Name'"></app-label>
+                    </ion-col>
+                    <ion-col>
+                      <app-label [text]="item.itemCategory?.name" [description]="'Category Name'"></app-label>
+                    </ion-col>
+                    <ion-col>
+                      <ion-label>Available Quantity</ion-label>
+                      <ion-input type="number" [value]="item.availableQuantity" (ionChange)="trackChange(item, $event.detail)" [min]="0"></ion-input>
+                    </ion-col>
+                    <ion-col size="auto">
+                      <ion-button fill="clear" color="danger" (click)="deleteItem(item)">
+                        <ion-icon slot="icon-only" name="trash"></ion-icon>
+                      </ion-button>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-item>
+
+              <ion-item slot="content">
+                <ion-select interface="action-sheet" (ionChange)="addItem($event.detail.value)">
+                  <ion-select-option *ngFor="let item of items" [value]="item">
+                    {{ item.name }}
+                  </ion-select-option>
+                </ion-select>
+              </ion-item>
+
+
+              <ion-item slot="content" *ngIf="addedItems?.length !== 0">
+                <ion-grid>
+                  <ion-row *ngFor="let item of addedItems">
+                    <ion-col>
+                      <ion-icon icon="add"></ion-icon>
+                    </ion-col>
+                    <ion-col>
+                      <app-label [text]="item.name" [description]="'Item Name'"></app-label>
+                    </ion-col>
+                    <ion-col>
+                      <app-label [text]="item.itemCategory?.name" [description]="'Category Name'"></app-label>
+                    </ion-col>
+                    <ion-col>
+                      <ion-label>Available Quantity</ion-label>
+                      <ion-input type="number" [value]="item.availableQuantity" (ionChange)="trackChange(item, $event.detail)" [min]="0"></ion-input>
+                    </ion-col>
+                    <ion-col size="auto">
+                      <ion-button fill="clear" color="danger" (click)="deleteItem(item)">
+                        <ion-icon slot="icon-only" name="trash"></ion-icon>
+                      </ion-button>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-item>
+            </ion-accordion>
+          </ion-accordion-group>
+        </ion-row>
+      <ion-button (click)="confirm()">Confirm</ion-button>
+    <ion-button (click)="cancel()">Cancel</ion-button>
+  </ion-grid>
+</ion-list>

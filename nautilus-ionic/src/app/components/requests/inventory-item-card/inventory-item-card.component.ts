@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {InventoryRequest, RequestStatus} from "../../../api";
+import {InventoryRequestDTO, RequestStatus} from "../../../api";
 
 @Component({
   selector: 'app-inventory-item-card',
@@ -7,7 +7,7 @@ import {InventoryRequest, RequestStatus} from "../../../api";
   styleUrls: ['./inventory-item-card.component.scss'],
 })
 export class InventoryItemCardComponent  implements OnInit {
-  @Input() req: InventoryRequest = {} as InventoryRequest;
+  @Input() req: InventoryRequestDTO = {} as InventoryRequestDTO;
   constructor() { }
 
   ngOnInit() {

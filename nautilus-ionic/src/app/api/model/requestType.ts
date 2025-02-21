@@ -9,12 +9,11 @@
  */
 
 
-export type RequestType = 'ASSOCIATION_REQUEST' | 'INVENTORY_REQUEST' | 'PROJECT_REQUEST' | 'VIEW_ALL_LIST';
+export type RequestType = 'ASSOCIATION_REQUEST' | 'INVENTORY_REQUEST' | 'PROJECT_REQUEST';
 
 export const RequestType = {
     AssociationRequest: 'ASSOCIATION_REQUEST' as RequestType,
     InventoryRequest: 'INVENTORY_REQUEST' as RequestType,
-    ProjectRequest: 'PROJECT_REQUEST' as RequestType,
-    ViewAllList: 'VIEW_ALL_LIST' as RequestType
+    ProjectRequest: 'PROJECT_REQUEST' as RequestType
 };
 

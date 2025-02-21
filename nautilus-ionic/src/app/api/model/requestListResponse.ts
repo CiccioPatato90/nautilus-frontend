@@ -7,17 +7,23 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { AssociationRequest } from './associationRequest';
-import { BaseRequest } from './baseRequest';
-import { InventoryRequest } from './inventoryRequest';
+import { ProjectRequestDTO } from './projectRequestDTO';
+import { InventoryRequestDTO } from './inventoryRequestDTO';
+import { AssociationRequestDTO } from './associationRequestDTO';
 import { RequestFilter } from './requestFilter';
 import { RequestType } from './requestType';
 
 
 export interface RequestListResponse { 
-    associationRequests?: Array<AssociationRequest>;
-    inventoryRequests?: Array<InventoryRequest>;
-    allRequests?: Array<BaseRequest>;
+    associationRequests?: Array<AssociationRequestDTO>;
+    /**
+     * Map of string to array of inventory requests
+     */
+    inventoryRequests?: { [key: string]: Array<InventoryRequestDTO>; };
+    /**
+     * Map of string to array of project requests
+     */
+    projectRequests?: { [key: string]: Array<ProjectRequestDTO>; };
     filters?: RequestFilter;
     requestTypeEnum?: RequestType;
 }

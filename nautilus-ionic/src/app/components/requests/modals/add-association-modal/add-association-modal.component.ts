@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ModalController} from "@ionic/angular";
-import {AssociationDTO} from "../../../api";
-import {DynamicFormService} from "../../../utils/dynamic-form.service";
 import {FormGroup, Validators} from "@angular/forms";
+import {AssociationDTO} from "../../../../api";
+import {DynamicFormService} from "../../../../utils/dynamic-form.service";
 
 @Component({
   selector: 'app-add-association-modal',
@@ -43,7 +43,7 @@ export class AddAssociationModalComponent implements OnInit {
       remarks: [Validators.maxLength(1024)]
     };
 
-    this.associationForm = this.dynamicFormService.createFormFromModel(this.assoc, ["img64"], customValidators);
+    this.associationForm = this.dynamicFormService.createFormFromModel(this.assoc, ["img64"],[],customValidators);
     this.formFields = Object.keys(this.associationForm.controls);
   }
 

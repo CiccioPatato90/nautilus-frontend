@@ -9,13 +9,23 @@
  */
 import { ObjectId } from './objectId';
 import { ContactInfo } from './contactInfo';
+import { RequestStatus } from './requestStatus';
 
 
 export interface AssociationRequestDTO { 
     _id?: ObjectId;
-    date?: string;
+    associationName?: string;
+    associationConfirmed?: boolean;
+    associationSQLId?: string;
+    motivation?: string;
+    status?: RequestStatus;
+    updatedAt?: string;
+    createdAt?: string;
     contactInfo?: ContactInfo;
     attachments?: Array<string>;
     location?: string;
 }
+export namespace AssociationRequestDTO {
+}
+
 

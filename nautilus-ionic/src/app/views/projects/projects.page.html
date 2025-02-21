@@ -1,6 +1,6 @@
 <ion-content [fullscreen]="true" *ngIf="projectRequestList">
   <ion-list>
-      <ion-accordion-group>
+      <ion-accordion-group [multiple]="true">
         <ion-accordion>
           <ion-item slot="header">
             <ion-grid>
@@ -21,7 +21,8 @@
                   <app-label [text]="project.projectName" [description]="'Project Name'"></app-label>
                 </ion-col>
                 <ion-col>
-                  <app-label [text]="project.associationName" [description]="'Proposed By'"></app-label>
+<!--                  fetch from server-->
+<!--                  <app-label [text]="project.associationName" [description]="'Proposed By'"></app-label>-->
                 </ion-col>
                 <ion-col>
                   <app-label [text]="project.createdAt | date" [description]="'Created At'"></app-label>

@@ -1,39 +1,46 @@
-<ion-card (click)="navigateToDetail()">
-  <ion-card-header>
-    <ion-card-title>
-      <ion-icon  style="padding-right: 16px" [name]="'business-outline'"></ion-icon>
-      <ion-label>{{ request.associationName }}</ion-label>
-    </ion-card-title>
-    <ion-card-subtitle>
-      <ion-icon style="padding-right: 16px" name="finger-print-outline"></ion-icon>
-      <!--                <ion-label [title]="getCardSubtitle(req)"></ion-label>-->
-      <ion-label>{{'Request ID: ' + request.requestId }}</ion-label>
-    </ion-card-subtitle>
-  </ion-card-header>
+<ion-grid>
+    <ion-button (click)="openAddAssociationModal()">Generate New Association Request</ion-button>
 
-  <ion-card-content>
-    <div>
-      <ion-chip [color]="getStatusColor(request.status)">
-        <ion-icon [name]="getStatusIcon(request.status)"></ion-icon>
-        <ion-label>{{ request.status }}</ion-label>
-      </ion-chip>
+    <ion-row>
+      <ion-col>
+        <ion-card *ngFor="let request of requestResponse.associationRequests" (click)="navigateToDetail(request._id)">
+          <ion-card-header>
+            <ion-card-title>
+              <ion-icon  style="padding-right: 16px" [name]="'business-outline'"></ion-icon>
+              <ion-label>{{ request.associationName }}</ion-label>
+            </ion-card-title>
+          </ion-card-header>
 
-      <ion-chip>
-        <ion-icon name="calendar-outline"></ion-icon>
-        <ion-label>{{ formatTimestamp(request.updatedAt) }}</ion-label>
-      </ion-chip>
-    </div>
+          <ion-card-content>
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <ion-chip [color]="getStatusColor(request.status)">
+                    <ion-icon [name]="getStatusIcon(request.status)"></ion-icon>
+                    <app-label [text]="request.status" [description]="'Status'"></app-label>
+                  </ion-chip>
+                </ion-col>
+                <ion-col>
+                  <app-label [text]="request.location" [description]="'Location'"></app-label>
+                </ion-col>
+              </ion-row>
 
-    <div *ngIf="request.tags?.length">
-      <strong>
-        <ion-icon name="pricetags-outline"></ion-icon> Tags:
-      </strong>
-      <ion-chip *ngFor="let tag of request.tags">
-        <ion-icon name="pricetag-outline"></ion-icon>
-        <ion-label>{{ tag }}</ion-label>
-      </ion-chip>
-    </div>
-  </ion-card-content>
-</ion-card>
+              <ion-row>
+                <ion-col>
+                  <app-label [text]="formatTimestamp(request.createdAt)" [description]="'Created At'"></app-label>
+                </ion-col>
+                <ion-col>
+                  <app-label [text]="formatTimestamp(request.updatedAt)" [description]="'Updated At'"></app-label>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+
+          </ion-card-content>
+        </ion-card>
+
+      </ion-col>
+    </ion-row>
+</ion-grid>
+
 
 

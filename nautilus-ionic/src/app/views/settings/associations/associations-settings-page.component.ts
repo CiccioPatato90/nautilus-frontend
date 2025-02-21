@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {ModalController} from "@ionic/angular";
 import {Router} from "@angular/router";
+import {AssociationDTO, AssociationSettingsControllerService} from "../../../api";
 import {
   AddAssociationModalComponent
-} from "../../../components/modals/add-association-modal/add-association-modal.component";
-import {AssociationDTO, AssociationSettingsControllerService} from "../../../api";
+} from "../../../components/requests/modals/add-association-modal/add-association-modal.component";
 
 @Component({
   selector: 'app-assoc-mgmt',

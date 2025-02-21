@@ -1,22 +1,31 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {AssociationRequest, ProjectRequest} from "../../../api";
-import {RequestsFilterService} from "../../../services/requests/requests-filter.service";
+import {AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ObjectId, ProjectRequestDTO, RequestCommand, RequestListResponse} from "../../../api";
 import {Router} from "@angular/router";
+import {ModalController} from "@ionic/angular";
+import {ProjectRequestAddModalComponent} from "../modals/project-request-add-modal/project-request-add-modal.component";
 
 @Component({
   selector: 'app-project-requests',
   templateUrl: './project-requests.component.html',
   styleUrls: ['./project-requests.component.scss'],
 })
-export class ProjectRequestsComponent  implements OnInit {
+export class ProjectRequestsComponent implements OnInit{
 
-  @Input() request: ProjectRequest = {} as ProjectRequest;
+  @Input() requestResponse: RequestListResponse = {} as RequestListResponse;
+  @Output() addRequestEvent = new EventEmitter<RequestCommand>();
 
-  constructor(private router:Router) { }
+  projectRequestsMap : Map<string, Array<ProjectRequestDTO>> = new Map();
+
+  constructor(private router:Router,
+              private modalCtrl: ModalController) { }
+
 
   ngOnInit() {
-    // this.requestFilterService.setFilters();
-    return
+    // @ts-ignore
+    if(this.requestResponse.projectRequests){
+      console.log(Object.entries(this.requestResponse.projectRequests));
+      this.projectRequestsMap = new Map(Object.entries(this.requestResponse.projectRequests));
+    }
   }
   // Function to format timestamp (adjust to your preferred format)
   formatTimestamp(timestamp: string | undefined): string {
@@ -43,8 +52,23 @@ export class ProjectRequestsComponent  implements OnInit {
     }
   }
 
+  async openAddProjectModal() {
+    const modal = await this.modalCtrl.create({
+      component: ProjectRequestAddModalComponent,
+      componentProps: { isEdit: false }
+    });
+    await modal.present();
 
-  navigateToDetail() {
-    this.router.navigate(['requests/get', this.request.requestId]);
+    const { data } = await modal.onDidDismiss();
+    if (data) {
+      var command = data.command;
+
+      this.addRequestEvent.emit(command);
+    }
+  }
+
+
+  navigateToDetail(id: ObjectId | undefined) {
+    this.router.navigate(['requests/get', id]);
   }
 }

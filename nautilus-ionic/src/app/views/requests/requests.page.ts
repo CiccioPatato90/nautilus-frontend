@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  AssociationDTO,
+  RequestCommand,
   RequestControllerService,
   RequestFilter,
   RequestListResponse,
@@ -8,11 +8,7 @@ import {
   RequestType
 } from "../../api";
 import {RequestsFilterService} from "../../services/requests/requests-filter.service";
-import {
-  AddAssociationModalComponent
-} from "../../components/modals/add-association-modal/add-association-modal.component";
 import {ModalController} from "@ionic/angular";
-import {RequestAddModalComponent} from "../../components/requests/request-add-modal/request-add-modal.component";
 
 @Component({
   selector: 'app-requests',
@@ -25,7 +21,8 @@ export class RequestsPage implements OnInit {
 
   requestTypes = Object.values(RequestType);
 
-  requestResponse: RequestListResponse = {} as RequestListResponse;
+  requestResponse: RequestListResponse | undefined;
+  // requests: Array<InventoryRequestDTO> | Array<AssociationRequestDTO> | Array<ProjectRequestDTO> | undefined;
 
   constructor(private requestController: RequestControllerService,
               private requestFilterService: RequestsFilterService,
@@ -40,39 +37,32 @@ export class RequestsPage implements OnInit {
     this.requestFilterService.filters$.subscribe(filters => {
       if (filters !== null){
         this.filters = filters;
-        this.loadJoinRequests();
+        this.loadRequests();
       }
     });
 
-    this.loadJoinRequests();
+    this.loadRequests();
 
   }
 
-  private loadJoinRequests() {
+  private loadRequests() {
     this.requestController.apiRequestsListPost(this.filters).subscribe(response => {
-      console.log("Received response", response)
-      this.requestResponse = response;
+      this.requestResponse = response
     });
   }
 
   filterTypeChanged($event: any) {
     this.filters.requestType = $event.detail.value;
-    this.loadJoinRequests();
+    this.requestResponse = undefined;
+    this.loadRequests();
   }
 
   protected readonly RequestType = RequestType;
 
-  async openAddModal(requestType: RequestType | undefined) {
-    const modal = await this.modalCtrl.create({
-      component: RequestAddModalComponent,
-      componentProps: { requestType: requestType, isEdit: false }
+  addRequest(command: RequestCommand) {
+    this.requestController.apiRequestsAddPost(command).subscribe(value => {
+      console.log("saved req with ID", value.requestMongoID);
+      this.loadRequests();
     });
-    await modal.present();
-
-    const { data } = await modal.onDidDismiss();
-    if (data) {
-      // const result: AssociationDTO = data.association;
-      // this.addAssociation(result);
-    }
   }
 }

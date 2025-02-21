@@ -1,11 +1,18 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {
-  BaseRequest,
-  AssociationRequest,
-  RequestControllerService, RequestFilter,
-} from "../../../api";
+import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {RequestsFilterService} from "../../../services/requests/requests-filter.service";
 import {Router} from "@angular/router";
+import {
+  AssociationRequestDTO,
+  InventoryRequestDTO,
+  ObjectId, RequestCommand, RequestCommandType, RequestControllerService,
+  RequestListResponse,
+  RequestStatus,
+  RequestType
+} from "../../../api";
+import {ModalController} from "@ionic/angular";
+import {
+  AssociationRequestAddModalComponent
+} from "../modals/association-request-add-modal/association-request-add-modal.component";
 
 
 @Component({
@@ -15,41 +22,24 @@ import {Router} from "@angular/router";
 })
 export class AssociationRequestsComponent implements OnInit {
 
-  @Input() request: AssociationRequest = {} as AssociationRequest;
+  @Input() requestResponse: RequestListResponse = {} as RequestListResponse;
+  @Output() addRequestEvent = new EventEmitter<RequestCommand>();
+  associationRequests?: Array<AssociationRequestDTO>;
 
-  constructor(private requestFilterService: RequestsFilterService, private router:Router) { }
+  constructor(private requestFilterService: RequestsFilterService,
+              private router:Router,
+              private modalCtrl : ModalController,
+              private requestService: RequestControllerService) { }
 
   ngOnInit() {
     // this.requestFilterService.setFilters();
+    if(this.requestResponse){
+      // @ts-ignore
+      this.associationRequests = this.requestResponse.associationRequests;
+    }
+
     return
   }
-
-  // mockAddRequest() {
-  //   var requestDto = Object.assign({} as JoinRequestDto, {
-  //     associationName: `Association ${Math.floor(Math.random() * 1000)}`,
-  //     timestamp: new Date().toISOString(),
-  //     date: new Date().toISOString().split("T")[0],
-  //     motivation: "We would like to partner for an upcoming event.",
-  //     contactInfo: {
-  //       email: `contact${Math.floor(Math.random() * 100)}@example.com`,
-  //       phone: `+1${Math.floor(1000000000 + Math.random() * 9000000000)}`,
-  //     },
-  //     status: 'Pending',
-  //     requestSource: 'web',
-  //     history: [
-  //       {
-  //         changedBy: "client",
-  //         timestamp: new Date().toISOString()
-  //       },
-  //     ],
-  //   } as JoinRequestDto);
-  //
-  //   console.log("sending:", requestDto);
-  //
-  //   this.requestsController.apiRequestsAddPost(requestDto).subscribe(value => {
-  //     console.log("received response!!! ", value);
-  //   })
-  // }
 
   // Function to format timestamp (adjust to your preferred format)
   formatTimestamp(timestamp: string | undefined): string {
@@ -77,7 +67,38 @@ export class AssociationRequestsComponent implements OnInit {
   }
 
 
-  navigateToDetail() {
-    this.router.navigate(['requests/get', this.request.requestId]);
+  navigateToDetail(id: ObjectId | undefined) {
+    this.router.navigate(['requests/get', id]);
   }
+
+  async openAddAssociationModal() {
+    const modal = await this.modalCtrl.create({
+      component: AssociationRequestAddModalComponent,
+      componentProps: { isEdit: false }
+    });
+    await modal.present();
+
+    const { data } = await modal.onDidDismiss();
+    if (data) {
+      // const result: AssociationRequestDTO = data.request;
+      // this.addAssociation(result);
+      const result= Object.assign(
+        data.request as AssociationRequestDTO,
+        {
+
+        } as AssociationRequestDTO)
+
+      console.log("req", result);
+
+      var command = {
+        associationRequestDTO: result,
+        commandType: RequestCommandType.Insert,
+        requestType: RequestType.AssociationRequest
+      } as RequestCommand;
+
+      this.addRequestEvent.emit(command);
+    }
+  }
+
+  protected readonly RequestType = RequestType;
 }

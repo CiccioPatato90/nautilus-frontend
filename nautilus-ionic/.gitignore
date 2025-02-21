@@ -12,6 +12,8 @@ $RECYCLE.BIN/
 *.log
 log.txt
 
+# OpenAPI Generated sources
+/src/app/api/*
 
 /.sourcemaps
 /.versions

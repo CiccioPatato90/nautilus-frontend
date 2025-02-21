@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {
-  BaseRequest,
   RequestCommand,
   RequestCommandType,
   RequestControllerService,
@@ -10,6 +9,7 @@ import {
 } from "../../../api";
 import {IonRouterOutlet, ModalController} from "@ionic/angular";
 import {ConfirmActionComponent} from "../../../components/utils/confirm-action/confirm-action.component";
+import {BaseRequest} from "../../../api/model/baseRequest";
 
 @Component({
   selector: 'app-request-detail',
@@ -18,7 +18,7 @@ import {ConfirmActionComponent} from "../../../components/utils/confirm-action/c
 })
 export class RequestDetailPage implements OnInit {
   requestId: string | null | undefined;
-  req: BaseRequest = {} as BaseRequest;
+  req: any = {};
   constructor( private activatedRoute: ActivatedRoute,
                private requestController : RequestControllerService,
                private modalController: ModalController) { }
@@ -27,8 +27,13 @@ export class RequestDetailPage implements OnInit {
     this.requestId = this.activatedRoute.snapshot.paramMap.get('id'); // Get ID from URL
 
     if (this.requestId !== null){
-      this.requestController.apiRequestsGetIdPost(this.requestId).subscribe(req => {
-        this.req = req;
+      const command: RequestCommand = {
+        requestId: this.requestId,
+        requestType: RequestType.ProjectRequest,
+      };
+
+      this.requestController.apiRequestsGetPost(command).subscribe(req => {
+        this.req = req.projectRequestDTO;
         console.log("received req", req);
       });
     }

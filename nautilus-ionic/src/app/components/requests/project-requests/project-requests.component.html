@@ -1,51 +1,57 @@
-<ion-card (click)="navigateToDetail()">
-  <ion-card-header>
-    <ion-card-title>
-      <ion-icon  style="padding-right: 16px" [name]="'hammer-outline'"></ion-icon>
-      <ion-label>{{ request.projectName }}</ion-label>
-    </ion-card-title>
-    <ion-card-subtitle>
-      <ion-grid>
-        <ion-row>
-          <ion-icon style="padding-right: 16px" name="business-outline"></ion-icon>
-          <ion-label>{{'Project Owner: ' + request.associationName }}</ion-label>
-        </ion-row>
-        <ion-row>
-          <ion-icon style="padding-right: 16px" name="finger-print-outline"></ion-icon>
-          <ion-label>{{'Request ID: ' + request.requestId }}</ion-label>
-        </ion-row>
-      </ion-grid>
+<ion-button (click)="openAddProjectModal()">Generate New Project Request</ion-button>
+<ion-grid>
+  <ion-row>
+    <ion-col>
+      <ion-accordion-group [multiple]="true">
+        <ion-accordion *ngFor="let associationName of projectRequestsMap.keys()">
+          <ion-item slot="header">
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <app-label [text]="associationName" [description]="'Association Name'"></app-label>
+                </ion-col>
+                <ion-col>
+                  <app-label [text]="projectRequestsMap.get(associationName)?.length" [description]="'Count'"></app-label>
+                </ion-col>
+              </ion-row>
 
-    </ion-card-subtitle>
-  </ion-card-header>
+            </ion-grid>
+          </ion-item>
 
-  <ion-card-content>
-    <ion-grid>
-      <ion-row>
-        <ion-chip [color]="getStatusColor(request.status)">
-          <ion-icon [name]="getStatusIcon(request.status)"></ion-icon>
-          <ion-label>{{ request.status }}</ion-label>
-        </ion-chip>
+          <ion-item *ngFor="let request of projectRequestsMap.get(associationName)" [detail]="true" slot="content"
+                    button (click)="navigateToDetail(request._id)">
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                    <app-label [text]="request.projectName" [description]="'Project Name'"></app-label>
+                </ion-col>
 
-        <ion-chip>
-          <ion-icon name="calendar-outline"></ion-icon>
-          <ion-label>{{ formatTimestamp(request.updatedAt) }}</ion-label>
-        </ion-chip>
-      </ion-row>
+                <ion-col>
+                  <app-label [text]="request.budget" [description]="'Budget'"></app-label>
+                </ion-col>
 
-      <ion-row>
-        <ion-chip>
-          <ion-icon name="cash-outline"></ion-icon>
-          <ion-label>{{ request.budget }}</ion-label>
-        </ion-chip>
+                <ion-col>
+                  <ion-chip [color]="getStatusColor(request.status)">
+                    <ion-icon [name]="getStatusIcon(request.status)"></ion-icon>
+                    <app-label [text]="request.status" [description]="'Status'"></app-label>
+                  </ion-chip>
+                </ion-col>
+                <ion-col>
+                  <app-label [text]="request.createdAt | date" [description]="'Created At'"></app-label>
+                </ion-col>
+                <ion-col>
+                  <app-label [text]="request.updatedAt | date" [description]="'Updated At'"></app-label>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+        </ion-accordion>
+      </ion-accordion-group>
 
-        <ion-chip>
-          <ion-icon name="cash-outline"></ion-icon>
-          <ion-label>{{ "Required Items:" + request.requiredItemsSQLId?.length }}</ion-label>
-        </ion-chip>
-      </ion-row>
-    </ion-grid>
-  </ion-card-content>
-</ion-card>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+
 
 

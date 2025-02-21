@@ -13,28 +13,21 @@ import { ProjectItem } from './projectItem';
 import { ObjectId } from './objectId';
 import { ProjectAllocatedResources } from './projectAllocatedResources';
 import { RequestStatus } from './requestStatus';
-import { RequestType } from './requestType';
 
 
 export interface ProjectRequest { 
-    requestId?: string;
-    associationReqId?: string;
-    associationSQLId?: string;
-    associationConfirmed?: boolean;
-    associationName?: string;
-    requestType?: RequestType;
-    motivation?: string;
-    status?: RequestStatus;
-    tags?: Array<string>;
-    updatedAt?: string;
-    createdAt?: string;
     _id?: ObjectId;
+    associationReqId?: string;
+    associationSqlId?: number;
     projectName?: string;
     description?: string;
     budget?: number;
     requiredItemsSQLId?: Array<ProjectItem>;
     projectPlan?: Array<ProjectStep>;
     projectStatus?: ProjectStatus;
+    status?: RequestStatus;
+    updatedAt?: string;
+    createdAt?: string;
     allocationId?: string;
     allocatedResources?: ProjectAllocatedResources;
 }

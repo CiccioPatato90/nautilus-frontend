@@ -15,13 +15,12 @@ import { RequestType } from './requestType';
 
 
 export interface RequestCommand { 
-    requestMongoId?: string;
+    requestId?: string;
     commandType?: RequestCommandType;
     requestType?: RequestType;
     projectRequestDTO?: ProjectRequestDTO;
     inventoryRequestDTO?: InventoryRequestDTO;
     associationRequestDTO?: AssociationRequestDTO;
-    request?: object;
 }
 export namespace RequestCommand {
 }

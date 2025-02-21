@@ -11,8 +11,6 @@
 
 export interface InventoryChangeDTO { 
     itemId?: string;
-    itemName?: string;
-    previousQuantity?: number;
     requestedQuantity?: number;
     changeType?: string;
 }

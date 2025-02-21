@@ -7,6 +7,7 @@ export class DynamicFormService {
 
   createFormFromModel<T extends object>(
     model: T,
+    include: string[] = [],
     exclude: string[] = [],
     validators: { [key: string]: ValidatorFn[] } = {}
   ): FormGroup {
@@ -19,6 +20,12 @@ export class DynamicFormService {
           validators[key] || [Validators.required] // Use custom validators or default to required
         );
       }
+    }
+    for (const key of include) {
+      controls[key] = new FormControl(
+        key,
+        validators[key] || [Validators.required] // Use custom validators or default to required
+      );
     }
     return this.fb.group(controls);
   }
