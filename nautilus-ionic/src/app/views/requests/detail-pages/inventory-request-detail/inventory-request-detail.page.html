@@ -1,0 +1,96 @@
+<app-toolbar [title]="'Inventory Request Detail'">
+</app-toolbar>
+
+<ion-content [fullscreen]="true">
+  <ion-infinite-scroll>
+
+    <ion-card class="custom-card">
+
+      <ion-card-header class="card-header">
+
+        <ion-card-title class="title">
+          <ion-grid>
+            <ion-row>
+
+              <ion-col>
+                <ion-row>
+                  <app-label [text]="requestingAssoc?.associationName"
+                             [description]="'Requesting Association'">
+                  </app-label>
+                  <ion-icon icon="arrow-forward"
+                            [routerLink]="['/requests/get/a', requestingAssoc?._id]">
+                  </ion-icon>
+                </ion-row>
+              </ion-col>
+
+              <ion-col>
+                <app-label [text]="req?._id?.toString()" [description]="'Request ID'"></app-label>
+              </ion-col>
+
+            </ion-row>
+          </ion-grid>
+
+
+          <!--        <ng-container *ngIf="req?.associationConfirmed; else notConfirmed">-->
+
+
+          <!--        </ng-container>-->
+          <!--        <ng-template #notConfirmed>-->
+          <!--          <ion-icon name="warning-outline" class="header-icon warning-icon"></ion-icon>-->
+          <!--          <ion-label class="warning-label">-->
+          <!--            Association Not Confirmed-->
+          <!--            &lt;!&ndash; Future: Make this a link with [routerLink]="['/get', req.associationRequestId]" &ndash;&gt;-->
+          <!--            (ID: {{ req?._id }})-->
+          <!--          </ion-label>-->
+          <!--          <ion-button fill="solid" [routerLink]="['/requests/get', req?._id]" class="navigate-button">-->
+          <!--            <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>-->
+          <!--            <ion-label>Navigate to Request</ion-label>-->
+          <!--          </ion-button>-->
+          <!--        </ng-template>-->
+        </ion-card-title>
+
+      </ion-card-header>
+
+
+
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+
+            <ion-col>
+              <ion-row style="align-items: flex-end">
+                <app-label [text]="req?.status" [description]="'Status'" [textStyle]="{color: getStatusColor(req?.status)}"></app-label>
+              </ion-row>
+
+            </ion-col>
+
+            <ion-col>
+              <app-label [text]="req?.approvedBy" [description]="'Approved By'"></app-label>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <app-label [text]="req?.createdAt | date" [description]="'Created At'"></app-label>
+            </ion-col>
+            <ion-col>
+              <app-label [text]="req?.updatedAt | date" [description]="'Updated At'"></app-label>
+            </ion-col>
+          </ion-row>
+
+        </ion-grid>
+      </ion-card-content>
+
+    </ion-card>
+
+    <app-inventory-item-card [req]="req" *ngIf="req && itemsMetadata" [itemsMetadata]="itemsMetadata"></app-inventory-item-card>
+
+
+    <app-approval-card [buttonsDisabled]="req?.status !== RequestStatus.Pending"
+                       (confirmationEvent)="handleConfirmationEvent($event)"></app-approval-card>
+
+  </ion-infinite-scroll>
+
+</ion-content>
+
+

@@ -26,6 +26,7 @@ export interface ProjectRequest {
     projectPlan?: Array<ProjectStep>;
     projectStatus?: ProjectStatus;
     status?: RequestStatus;
+    approvedBy?: string;
     updatedAt?: string;
     createdAt?: string;
     allocationId?: string;

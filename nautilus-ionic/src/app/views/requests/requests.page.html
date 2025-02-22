@@ -1,20 +1,20 @@
 
 <ion-content>
-
   <ion-segment [(ngModel)]="filters.requestType" (ionChange)="filterTypeChanged($event)">
     <ion-segment-button *ngFor="let reqType of requestTypes" [value]="reqType">
       <ion-label>{{ reqType }}</ion-label>
     </ion-segment-button>
   </ion-segment>
-
 <!--  TODO: FILTERS!!!!-->
 <!--  <app-requests-filter [filters]="filters"></app-requests-filter>-->
 
   <div [ngSwitch]="filters.requestType" *ngIf="requestResponse">
-    <app-association-requests *ngSwitchCase="RequestType.AssociationRequest" [requestResponse]="requestResponse" (addRequestEvent)="addRequest($event)"></app-association-requests>
-    <app-project-requests *ngSwitchCase="RequestType.ProjectRequest" [requestResponse]="requestResponse" (addRequestEvent)="addRequest($event)"></app-project-requests>
-    <app-inventory-requests *ngSwitchCase="RequestType.InventoryRequest" [requestResponse]="requestResponse" (addRequestEvent)="addRequest($event)"></app-inventory-requests>
+    <app-association-requests *ngSwitchCase="RequestType.AssociationRequest" [requestResponse]="requestResponse"
+                              (addRequestEvent)="addRequest($event)"></app-association-requests>
+    <app-project-requests *ngSwitchCase="RequestType.ProjectRequest" [requestResponse]="requestResponse"
+                          (addRequestEvent)="addRequest($event)"></app-project-requests>
+    <app-inventory-requests *ngSwitchCase="RequestType.InventoryRequest" [requestResponse]="requestResponse"
+                            (addRequestEvent)="addRequest($event)"></app-inventory-requests>
   </div>
-
 
 </ion-content>

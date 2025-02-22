@@ -69,6 +69,6 @@ export class ProjectRequestsComponent implements OnInit{
 
 
   navigateToDetail(id: ObjectId | undefined) {
-    this.router.navigate(['requests/get', id]);
+    this.router.navigate(['requests/get/p', id]);
   }
 }

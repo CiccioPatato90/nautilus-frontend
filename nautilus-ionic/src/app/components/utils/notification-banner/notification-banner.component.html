@@ -1,0 +1,13 @@
+<!--<div *ngIf="notification" class="notification-banner" [ngClass]="notification.type">-->
+<!--  {{ notification.message }}-->
+<!--</div>-->
+
+
+<div class="notification-container" *ngIf="notification" [@slideInOut]>
+  <div class="notification-banner" [ngClass]="notification.type">
+    <div class="notification-content">
+      <ion-icon [name]="notification.type === 'success' ? 'checkmark-circle' : 'alert-circle'"></ion-icon>
+      <span>{{ notification.message }}</span>
+    </div>
+  </div>
+</div>

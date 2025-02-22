@@ -8,11 +8,16 @@
  * Do not edit the class manually.
  */
 import { AssociationDTO } from './associationDTO';
+import { ProjectRequestDTO } from './projectRequestDTO';
+import { InventoryRequestDTO } from './inventoryRequestDTO';
 import { InventoryItemDTO } from './inventoryItemDTO';
 
 
 export interface RequestCommonData { 
     associationsList?: Array<AssociationDTO>;
+    itemMetadataMap?: { [key: string]: InventoryItemDTO; };
     itemsList?: Array<InventoryItemDTO>;
+    inventoryRequestList?: Array<InventoryRequestDTO>;
+    projectRequestList?: Array<ProjectRequestDTO>;
 }
 

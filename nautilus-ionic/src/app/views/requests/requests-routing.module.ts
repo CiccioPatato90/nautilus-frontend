@@ -9,8 +9,16 @@ const routes: Routes = [
     component: RequestsPage
   },
   {
-    path: 'get/:id',
-    loadChildren: () => import('./request-detail/request-detail.module').then( m => m.RequestDetailPageModule)
+    path: 'get/a/:id',
+    loadChildren: () => import('./detail-pages/association-request-detail/association-request-detail.module').then( m => m.AssociationRequestDetailPageModule)
+  },
+  {
+    path: 'get/i/:id',
+    loadChildren: () => import('./detail-pages/inventory-request-detail/inventory-request-detail.module').then( m => m.InventoryRequestDetailPageModule)
+  },
+  {
+    path: 'get/p/:id',
+    loadChildren: () => import('./detail-pages/project-request-detail/project-request-detail.module').then( m => m.ProjectRequestDetailPageModule)
   }
 ];
 

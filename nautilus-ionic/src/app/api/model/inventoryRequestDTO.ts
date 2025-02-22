@@ -20,7 +20,6 @@ export interface InventoryRequestDTO {
     updatedAt?: string;
     createdAt?: string;
     inventoryChanges?: Array<InventoryChangeDTO>;
-    inventoryState?: { [key: string]: number; };
     approvedBy?: string;
 }
 export namespace InventoryRequestDTO {

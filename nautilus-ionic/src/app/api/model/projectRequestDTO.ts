@@ -7,11 +7,11 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { ProjectStep } from './projectStep';
+import { ProjectAllocatedResourcesDTO } from './projectAllocatedResourcesDTO';
 import { ProjectStatus } from './projectStatus';
-import { ProjectItem } from './projectItem';
 import { ObjectId } from './objectId';
-import { ProjectAllocatedResources } from './projectAllocatedResources';
+import { ProjectItemDTO } from './projectItemDTO';
+import { ProjectStepDTO } from './projectStepDTO';
 import { RequestStatus } from './requestStatus';
 
 
@@ -22,14 +22,15 @@ export interface ProjectRequestDTO {
     projectName?: string;
     description?: string;
     budget?: number;
-    requiredItemsSQLId?: Array<ProjectItem>;
-    projectPlan?: Array<ProjectStep>;
+    requiredItemsSQLId?: Array<ProjectItemDTO>;
+    projectPlan?: Array<ProjectStepDTO>;
     projectStatus?: ProjectStatus;
     status?: RequestStatus;
+    approvedBy?: string;
     updatedAt?: string;
     createdAt?: string;
     allocationId?: string;
-    allocatedResources?: ProjectAllocatedResources;
+    allocatedResources?: ProjectAllocatedResourcesDTO;
 }
 export namespace ProjectRequestDTO {
 }

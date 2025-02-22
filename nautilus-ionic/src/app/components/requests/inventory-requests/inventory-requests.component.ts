@@ -63,7 +63,7 @@ export class InventoryRequestsComponent  implements OnInit {
   }
 
   navigateToDetail(id: ObjectId | undefined) {
-    this.router.navigate(['requests/get', id]);
+    this.router.navigate(['requests/get/i', id]);
   }
 
   async openAddInventoryModal() {

@@ -1,0 +1,97 @@
+<app-toolbar [title]="'Association Request Detail'">
+</app-toolbar>
+
+<ion-content>
+
+  <ion-card class="custom-card">
+
+    <ion-card-header class="card-header">
+
+      <ion-card-title class="title">
+        <ion-grid>
+          <ion-row>
+
+            <ion-col>
+              <app-label [text]="req?.associationName" [description]="'Association Name'"></app-label>
+            </ion-col>
+
+            <ion-col>
+              <app-label [text]="req?._id?.toString()" [description]="'Request ID'"></app-label>
+            </ion-col>
+
+          </ion-row>
+        </ion-grid>
+
+
+<!--        <ng-container *ngIf="req?.associationConfirmed; else notConfirmed">-->
+
+
+<!--        </ng-container>-->
+<!--        <ng-template #notConfirmed>-->
+<!--          <ion-icon name="warning-outline" class="header-icon warning-icon"></ion-icon>-->
+<!--          <ion-label class="warning-label">-->
+<!--            Association Not Confirmed-->
+<!--            &lt;!&ndash; Future: Make this a link with [routerLink]="['/get', req.associationRequestId]" &ndash;&gt;-->
+<!--            (ID: {{ req?._id }})-->
+<!--          </ion-label>-->
+<!--          <ion-button fill="solid" [routerLink]="['/requests/get', req?._id]" class="navigate-button">-->
+<!--            <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>-->
+<!--            <ion-label>Navigate to Request</ion-label>-->
+<!--          </ion-button>-->
+<!--        </ng-template>-->
+      </ion-card-title>
+
+    </ion-card-header>
+
+<!--    SHOW: ASSOCIATION METADATA, REQUESTS PENDING DONE BY ASSOCIATION, -->
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <app-label [text]="req?.motivation" [description]="'Motivation'"></app-label>
+          </ion-col>
+
+          <ion-col>
+            <ion-row style="align-items: flex-end">
+
+<!--              <ion-icon-->
+<!--                [name]="getStatusIcon(req?.status)"-->
+<!--                size="large"-->
+<!--                style="padding-right: 16px"-->
+<!--                [style.color]="getStatusColor(req?.status)">-->
+<!--              </ion-icon>-->
+
+              <app-label [text]="req?.status" [description]="'Status'" [textStyle]="{color: getStatusColor(req?.status)}"></app-label>
+            </ion-row>
+
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <app-label [text]="req?.createdAt | date" [description]="'Created At'"></app-label>
+          </ion-col>
+          <ion-col>
+            <app-label [text]="req?.updatedAt | date" [description]="'Updated At'"></app-label>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <app-label [text]="req?.location" [description]="'Association Location'"></app-label>
+          </ion-col>
+          <ion-col>
+            <app-label [text]="req?.contactInfo?.email" [description]="'Contact Mail'"></app-label>
+          </ion-col>
+          <ion-col>
+            <app-label [text]="req?.contactInfo?.phone" [description]="'Contact Phone'"></app-label>
+          </ion-col>
+        </ion-row>
+
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+<app-approval-card [buttonsDisabled]="!req?.associationConfirmed || req?.status !== RequestStatus.Pending"
+                   (confirmationEvent)="handleConfirmationEvent($event)"></app-approval-card>
+</ion-content>

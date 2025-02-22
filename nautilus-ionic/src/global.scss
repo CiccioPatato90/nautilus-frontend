@@ -48,8 +48,24 @@ html {
   --ion-font-family: 'Open Sans';
 }
 
-#map {
-  height: 100%;
+.toast-success {
+  --background: #28a745;
+  --color: #fff;
+  border-radius: 8px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: auto;
+}
+
+.toast-error {
+  --background: #dc3545;
+  --color: #fff;
+  border-radius: 8px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: auto;
 }
 
 

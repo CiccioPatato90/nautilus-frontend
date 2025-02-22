@@ -20,8 +20,7 @@ export class RequestDetailPage implements OnInit {
   requestId: string | null | undefined;
   req: any = {};
   constructor( private activatedRoute: ActivatedRoute,
-               private requestController : RequestControllerService,
-               private modalController: ModalController) { }
+               private requestController : RequestControllerService,) { }
 
   ngOnInit() {
     this.requestId = this.activatedRoute.snapshot.paramMap.get('id'); // Get ID from URL
@@ -41,55 +40,7 @@ export class RequestDetailPage implements OnInit {
 
   }
 
-  async openConfirmModal(title: string, description: string) {
-    const modal = await this.modalController.create({
-      component: ConfirmActionComponent,
-      componentProps: { title, description },
-      // // Setting the presenting element makes the modal animate and center relative to that element
-      // presentingElement: this.routerOutlet?.nativeEl,
-      cssClass: 'confirm-modal' // optional: use a custom class for additional styling
-    });
-    await modal.present();
-    const { data } = await modal.onDidDismiss();
-    return data; // returns true/false depending on user action
-  }
 
-  async approveRequest() {
-    const confirmed = await this.openConfirmModal(
-      'Confirm Approval',
-      'Are you sure you want to approve this request?'
-    );
-    if (confirmed) {
-      console.log('Request approved!');
-      // Add your approval logic here
-      var command = Object.assign({} as RequestCommand, {
-        requestType: this.req.requestType,
-        requestMongoId: this.req.requestId,
-        commandType: RequestCommandType.Approve
-      } as RequestCommand);
-
-      this.requestController.apiRequestsApprovePost(command).subscribe(value => {
-        console.log("REQUEST ACCEPTED CORRECTLY!");
-        this.req.status = RequestStatus.Approved;
-      });
-
-    } else {
-      console.log('Approval cancelled.');
-    }
-  }
-
-  async rejectRequest() {
-    const confirmed = await this.openConfirmModal(
-      'Confirm Rejection',
-      'Are you sure you want to reject this request?'
-    );
-    if (confirmed) {
-      console.log('Request rejected!');
-      // Add your rejection logic here
-    } else {
-      console.log('Rejection cancelled.');
-    }
-  }
 
   getStatusIcon(status: RequestStatus | undefined): string {
     console.log("status!!", status);

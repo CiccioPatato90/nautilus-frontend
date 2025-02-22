@@ -11,6 +11,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {TokenInterceptor} from "./utils/token.interceptor";
 import {ComponentsModule} from "./components/components.module";
 import {KeycloakService} from "./services/keycloak.service";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 export function apiConfigFactory (): Configuration {
   const params: ConfigurationParameters = {
@@ -32,6 +33,7 @@ export function initializeKeycloak(authService: KeycloakService) {
     IonicModule.forRoot(),
     ApiModule.forRoot(apiConfigFactory),
     HttpClientModule,
+    BrowserAnimationsModule,
     AppRoutingModule],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy } ,

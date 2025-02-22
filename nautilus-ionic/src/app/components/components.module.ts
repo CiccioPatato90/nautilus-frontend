@@ -12,7 +12,6 @@ import {
   AssociationRequestDetailCardComponent
 } from "./requests/association-request-detail-card/association-request-detail-card.component";
 import {ConfirmActionComponent} from "./utils/confirm-action/confirm-action.component";
-import {MapComponent} from "./map/map.component";
 import {ProjectRequestsComponent} from "./requests/project-requests/project-requests.component";
 import {LabelComponent} from "./granular/label/label.component";
 import {
@@ -25,6 +24,8 @@ import {
   AssociationRequestAddModalComponent
 } from "./requests/modals/association-request-add-modal/association-request-add-modal.component";
 import {AddAssociationModalComponent} from "./requests/modals/add-association-modal/add-association-modal.component";
+import {ApprovalCardComponent} from "./requests/approval-card/approval-card.component";
+import {NotificationBannerComponent} from "./utils/notification-banner/notification-banner.component";
 
 @NgModule({
   declarations: [
@@ -36,12 +37,13 @@ import {AddAssociationModalComponent} from "./requests/modals/add-association-mo
     InventoryItemCardComponent,
     AssociationRequestDetailCardComponent,
     ConfirmActionComponent,
-    MapComponent,
     ProjectRequestAddModalComponent,
     InventoryRequestAddModalComponent,
     AssociationRequestAddModalComponent,
     ProjectRequestsComponent,
-    LabelComponent
+    LabelComponent,
+    ApprovalCardComponent,
+    NotificationBannerComponent
   ],
   imports: [CommonModule, IonicModule, ReactiveFormsModule, FormsModule, RouterLink],
   exports:
@@ -54,12 +56,13 @@ import {AddAssociationModalComponent} from "./requests/modals/add-association-mo
       InventoryItemCardComponent,
       AssociationRequestDetailCardComponent,
       ConfirmActionComponent,
-      MapComponent,
       ProjectRequestAddModalComponent,
       InventoryRequestAddModalComponent,
       AssociationRequestAddModalComponent,
       ProjectRequestsComponent,
-      LabelComponent
+      LabelComponent,
+      ApprovalCardComponent,
+      NotificationBannerComponent
     ],
 })
 export class ComponentsModule { }

@@ -1,66 +1,150 @@
 <ion-card class="inventory-card">
   <ion-card-header class="card-header">
-    <ion-card-title class="card-title">Inventory Changes</ion-card-title>
+    <ion-card-title class="card-title">Requested Update</ion-card-title>
   </ion-card-header>
+
   <ion-card-content class="card-content">
     <ion-grid>
-      <!-- Table Header -->
-      <ion-row class="header-row">
-        <ion-col size="3"><div class="header-label">Item</div></ion-col>
-        <ion-col size="3"><div class="header-label">Prev Qty</div></ion-col>
-        <ion-col size="3"><div class="header-label">Req Qty</div></ion-col>
-        <ion-col size="3"><div class="header-label">Change</div></ion-col>
-      </ion-row>
-      <!-- Table Data -->
-      <ion-row *ngFor="let change of req.inventoryChanges" class="data-row">
-<!--        <ion-col size="3">-->
-<!--          <div class="data-value">{{ change.itemName }}</div>-->
-<!--        </ion-col>-->
-<!--        <ion-col size="3">-->
-<!--          <div class="data-value">{{ change.previousQuantity }}</div>-->
-<!--        </ion-col>-->
-        <ion-col size="3">
-          <div class="data-value">{{ change.requestedQuantity }}</div>
+
+      <ion-row *ngFor="let change of req.inventoryChanges">
+        <ion-col>
+          <app-label [text]="getMetadata(change.itemId)?.name" [description]="'Item Name'"></app-label>
         </ion-col>
-        <ion-col size="3">
-          <div class="data-value change-type">
-            <!-- Increase -->
-            <ion-icon *ngIf="change.changeType === 'Increase'" name="arrow-up-outline" class="change-icon increase"></ion-icon>
-            <!-- Decrease -->
-            <ion-icon *ngIf="change.changeType === 'Decrease'" name="arrow-down-outline" class="change-icon decrease"></ion-icon>
-            <!-- Add New -->
-            <ion-icon *ngIf="change.changeType === 'AddNew'" name="add-circle-outline" class="change-icon addnew"></ion-icon>
-            <!-- Delete/Out of Stock -->
-            <ion-icon *ngIf="change.changeType === 'Delete' || change.changeType === 'OutOfStock'" name="trash-outline" class="change-icon delete"></ion-icon>
-            <ion-label class="change-label">{{ change.changeType }}</ion-label>
-          </div>
+        <ion-col>
+          <app-label [text]="getMetadata(change.itemId)?.itemCategory?.name" [description]="'Item Category'"></app-label>
         </ion-col>
+        <ion-col>
+          <app-label [text]="change.requestedQuantity" [description]="'Particular Availability'"></app-label>
+        </ion-col>
+        <ion-col>
+          <app-label [text]="getMetadata(change.itemId)?.availableQuantity" [description]="'Global Availability'"></app-label>
+        </ion-col>
+<!--        <ion-col size="3">-->
+<!--          <div class="data-value change-type">-->
+<!--            &lt;!&ndash; Increase &ndash;&gt;-->
+<!--            <ion-icon *ngIf="change.changeType === 'Increase'" name="arrow-up-outline" class="change-icon increase"></ion-icon>-->
+<!--            &lt;!&ndash; Decrease &ndash;&gt;-->
+<!--            <ion-icon *ngIf="change.changeType === 'Decrease'" name="arrow-down-outline" class="change-icon decrease"></ion-icon>-->
+<!--            &lt;!&ndash; Add New &ndash;&gt;-->
+<!--            <ion-icon *ngIf="change.changeType === 'AddNew'" name="add-circle-outline" class="change-icon addnew"></ion-icon>-->
+<!--            &lt;!&ndash; Delete/Out of Stock &ndash;&gt;-->
+<!--            <ion-icon *ngIf="change.changeType === 'Delete' || change.changeType === 'OutOfStock'" name="trash-outline" class="change-icon delete"></ion-icon>-->
+<!--            -->
+<!--            <ion-label class="change-label">{{ change.changeType }}</ion-label>-->
+<!--          </div>-->
+<!--        </ion-col>-->
       </ion-row>
     </ion-grid>
   </ion-card-content>
 </ion-card>
 
-<!-- Approval Details Section -->
-<ion-card class="approval-card">
-  <ion-card-header class="card-header">
-    <ion-card-title class="card-title">Approval Details</ion-card-title>
-  </ion-card-header>
+
+<ion-card>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card-header class="card-header">
+          <ion-card-title class="card-title">Impact Simulation</ion-card-title>
+        </ion-card-header>
+      </ion-col>
+
+      <ion-col size="8" style="align-content: center">
+        <ion-segment (ionChange)="changeSimulationType($event)">
+          <ion-segment-button [value]="InventorySimulationType.PendingProjects">
+            <app-label [text]="'Pending Projects'" [description]="'Sim Type'">
+            </app-label>
+          </ion-segment-button>
+          <ion-segment-button [value]="InventorySimulationType.AllocatedProjects" [disabled]="true">
+            <app-label [text]="'Allocated Projects'" [description]="'Sim Type'">
+            </app-label>
+          </ion-segment-button>
+        </ion-segment>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
   <ion-card-content class="card-content">
-    <ion-grid>
-      <ion-row class="data-row">
-        <ion-col size="4">
-          <div class="info-label">Approved By</div>
-          <ng-template *ngIf="req.status === RequestStatus.Approved">
-            <div class="info-value">{{ req.approvedBy }}</div>
-          </ng-template>
-        </ion-col>
-        <ion-col size="4">
-          <div class="info-label">Approval Date</div>
-          <ng-template *ngIf="req.status === RequestStatus.Approved">
-            <div class="info-value">{{ req.updatedAt | date:'mediumDate' }}</div>
-          </ng-template>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+    <ion-row *ngFor="let change of req.inventoryChanges">
+      <ion-col>
+        <app-label [text]="getMetadata(change.itemId)?.name" [description]="'Item Name'"></app-label>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-toggle [checked]="false" (ionChange)="includeSim($event, change)"></ion-toggle>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-button expand="block" fill="outline" (click)="simulate()" [disabled]="this.command.simulationType == undefined">
+          <app-label [text]="'Simulate'"></app-label>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-card-content>
+</ion-card>
+
+<ion-card *ngIf="simulationResponse">
+  <ion-card-content class="card-content">
+    <ion-row>
+      <ion-col>
+        <app-label [text]="simulationResponse.metadata?.averageResourcesPerProject" [description]="'Avg Resources per project'"></app-label>
+      </ion-col>
+
+      <ion-col>
+        <app-label [text]="simulationResponse.metadata?.totalResourcesUsed" [description]="'Tot Resources used'"></app-label>
+      </ion-col>
+
+      <ion-col>
+        <app-label [text]="simulationResponse.metadata?.unusedResources" [description]="'Tot Resources Unused'"></app-label>
+      </ion-col>
+
+      <ion-col>
+        <app-label [text]="getAvgProjectCompletion(simulationResponse?.processedRequests, simulationResponse?.processedRequests?.length)" [description]="'Tot Resources Unused'"></app-label>
+      </ion-col>
+
+
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+<!--          <app-label [text]="getMetadata(simulationResponse.metadata?.leastAssignedResource?.resourceId)?.name" [description]="'Tot Resources used'"></app-label>-->
+        <app-label [text]="simulationResponse.metadata?.mostAssignedResource?.resourceId" [description]="'Most Used Resource'"></app-label>
+        <app-label [text]="simulationResponse.metadata?.leastAssignedResource?.resourceId" [description]="'Least Used Resource'"></app-label>
+      </ion-col>
+
+      <ion-col>
+<!--          <app-label [text]="getMetadata(simulationResponse.metadata?.leastAssignedResource?.resourceId)?.name" [description]="'Tot Resources used'"></app-label>-->
+
+        <app-label [text]="simulationResponse.metadata?.mostAssignedResource?.usageCount" [description]="'Most Used Resource Count'"></app-label>
+        <app-label [text]="simulationResponse.metadata?.leastAssignedResource?.usageCount" [description]="'Least Used Resource Count'"></app-label>
+      </ion-col>
+    </ion-row>
+
+
+
+  </ion-card-content>
+</ion-card>
+
+<ion-card *ngIf="simulationResponse">
+  <ion-card-content>
+    <ion-row *ngFor="let proj of simulationResponse.processedRequests">
+      <ion-col>
+        <app-label [text]="proj.projectName" [description]="'Project Name'"></app-label>
+      </ion-col>
+      <ion-col>
+        <app-label [text]="proj.allocatedResources?.completionPercentage ?? 'Unfeasible'" [description]="'Completion Percentage'"></app-label>
+      </ion-col>
+      <ion-col>
+        <app-label [text]="proj.budget" [description]="'Budget'"></app-label>
+      </ion-col>
+      <ion-col>
+        <ion-icon icon="arrow-forward"
+                  [routerLink]="['/requests/get/p', proj?._id]">
+        </ion-icon>
+      </ion-col>
+    </ion-row>
   </ion-card-content>
 </ion-card>

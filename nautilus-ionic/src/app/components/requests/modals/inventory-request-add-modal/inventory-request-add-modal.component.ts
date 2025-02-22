@@ -73,7 +73,7 @@ export class InventoryRequestAddModalComponent implements OnInit {
 
     this.inventoryState.forEach((value, key) => {
       let itemChange = {
-        itemId: key.toString(),
+        itemId: key,
         requestedQuantity: value
       } as InventoryChangeDTO;
 
