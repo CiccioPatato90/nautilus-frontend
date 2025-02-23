@@ -38,8 +38,9 @@ export class InventoryRequestDetailPage implements OnInit {
       this.requestController.apiRequestsGetPost(command).subscribe(req => {
         this.req = req.inventoryRequestDTO;
         this.requestingAssoc = req.associationRequestDTO;
+
         // @ts-ignore
-        this.itemsMetadata = new Map(Object.entries(req.commonData?.itemMetadataMap));
+        this.itemsMetadata = new Map(Object.entries(req.commonData?.itemMetadataMap ?? {}));
       });
     }
   }

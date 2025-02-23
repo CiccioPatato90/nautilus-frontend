@@ -1,0 +1,22 @@
+<ion-card>
+  <ion-card-content>
+    <ion-grid>
+      <ion-row *ngFor="let reqItem of req.requiredItemsSQLId">
+        <ion-col>
+          <app-label [text]="getMetadata(reqItem.sqlId)?.name" [description]="'Item Name'"></app-label>
+        </ion-col>
+        <ion-col>
+          <app-label [text]="reqItem.quantityNeeded" [description]="'Needed Quantity'"></app-label>
+        </ion-col>
+        <ion-col>
+          <app-label [text]="getAllocated(reqItem.sqlId)" [description]="'Allocated Quantity'"></app-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <app-label [text]="'WHAT SHOULD WE DO HERE? IF A PROJECT REQUEST IS APPROVED, WE REMOVE THE ITEMS FROM THE AVAILABLE LIST?' +
+         'WHAT IF WE RECEIVE ANOTHER REQUEST VERY IMPORTANT AND WE ALREADY BLOCKED THE ITEM FOR A PROJECT?'" [description]="'Note'">
+        </app-label>
+      </ion-row>
+    </ion-grid>
+  </ion-card-content>
+</ion-card>

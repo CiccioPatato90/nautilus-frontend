@@ -15,10 +15,13 @@ encoder.ts
 git_push.sh
 index.ts
 model/addRequestResponse.ts
+model/approveRequestResponse.ts
 model/associationDTO.ts
 model/associationRequestDTO.ts
 model/contactInfo.ts
 model/getRequestResponse.ts
+model/greedyOrder.ts
+model/greedyStrategy.ts
 model/inventoryBoxDTO.ts
 model/inventoryBoxSizeDTO.ts
 model/inventoryChangeDTO.ts

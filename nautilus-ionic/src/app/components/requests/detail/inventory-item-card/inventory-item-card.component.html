@@ -59,7 +59,36 @@
             </app-label>
           </ion-segment-button>
         </ion-segment>
+      </ion-col>
+    </ion-row>
 
+    <ion-row>
+      <ion-col>
+        <ion-segment (ionChange)="changeSimulationStrategy($event)">
+          <ion-segment-button [value]="GreedyStrategy.AssociationActivity">
+            <app-label [text]="'Association Activity'" [description]="'Greedy Strategy'">
+            </app-label>
+          </ion-segment-button>
+          <ion-segment-button [value]="GreedyStrategy.ProjectSize">
+            <app-label [text]="'Project Size'" [description]="'Greedy Strategy'">
+            </app-label>
+          </ion-segment-button>
+          <ion-segment-button [value]="GreedyStrategy.CreationDate">
+            <app-label [text]="'Creation Date'" [description]="'Greedy Strategy'">
+            </app-label>
+          </ion-segment-button>
+        </ion-segment>
+
+        <ion-segment (ionChange)="changeSimulationStrategyOrder($event)">
+          <ion-segment-button [value]="GreedyOrder.LargestFirst">
+            <app-label [text]="'Largest First'" [description]="'Greedy Order'">
+            </app-label>
+          </ion-segment-button>
+          <ion-segment-button [value]="GreedyOrder.SmallestFirst">
+            <app-label [text]="'Smallest First'" [description]="'Greedy Order'">
+            </app-label>
+          </ion-segment-button>
+        </ion-segment>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -78,7 +107,7 @@
 
     <ion-row>
       <ion-col>
-        <ion-button expand="block" fill="outline" (click)="simulate()" [disabled]="this.command.simulationType == undefined">
+        <ion-button expand="block" fill="outline" (click)="simulate()" [disabled]="isSimulateDisabled()">
           <app-label [text]="'Simulate'"></app-label>
         </ion-button>
       </ion-col>
@@ -87,6 +116,14 @@
 </ion-card>
 
 <ion-card *ngIf="simulationResponse">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card-title class="card-title">Simulation Metadata</ion-card-title>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
   <ion-card-content class="card-content">
     <ion-row>
       <ion-col>
@@ -129,14 +166,29 @@
 </ion-card>
 
 <ion-card *ngIf="simulationResponse">
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card-title class="card-title">Simulation Breakdown</ion-card-title>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
   <ion-card-content>
     <ion-row *ngFor="let proj of simulationResponse.processedRequests">
       <ion-col>
         <app-label [text]="proj.projectName" [description]="'Project Name'"></app-label>
       </ion-col>
+
       <ion-col>
-        <app-label [text]="proj.allocatedResources?.completionPercentage ?? 'Unfeasible'" [description]="'Completion Percentage'"></app-label>
+        <app-label [text]="proj.allocatedResources?.completionPercentage ?? 'Unfeasible'" [description]="'Simulated Completion Percentage'"></app-label>
       </ion-col>
+
+      <ion-col>
+        <app-label [text]="originalCompletions.get(getString(proj._id))" [description]="'Original Completion Percentage'"></app-label>
+      </ion-col>
+
       <ion-col>
         <app-label [text]="proj.budget" [description]="'Budget'"></app-label>
       </ion-col>

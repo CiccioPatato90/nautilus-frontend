@@ -7,6 +7,7 @@ import {
   RequestType
 } from "../../../../api";
 import {ActivatedRoute} from "@angular/router";
+import {NotificationService} from "../../../../services/utils/notification-service.service";
 
 @Component({
   selector: 'app-association-request-detail',
@@ -18,7 +19,8 @@ export class AssociationRequestDetailPage implements OnInit {
   req?: AssociationRequestDTO = {} as AssociationRequestDTO;
 
   constructor(private activatedRoute: ActivatedRoute,
-              private requestController : RequestControllerService,) { }
+              private requestController : RequestControllerService,
+              private notificationService: NotificationService) { }
 
   ngOnInit() {
     this.requestId = this.activatedRoute.snapshot.paramMap.get('id'); // Get ID from URL
@@ -79,7 +81,12 @@ export class AssociationRequestDetailPage implements OnInit {
       } as RequestCommand);
 
       this.requestController.apiRequestsApprovePost(command).subscribe(value => {
-        this.loadRequest();
+        if(value){
+          this.notificationService.showSuccess("Request approved successfully.");
+          this.loadRequest();
+        }else{
+          this.notificationService.showSuccess("Error while approving request.");
+        }
       });
     }
     else{

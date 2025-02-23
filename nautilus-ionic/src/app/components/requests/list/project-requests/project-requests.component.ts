@@ -1,8 +1,8 @@
-import {AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {ObjectId, ProjectRequestDTO, RequestCommand, RequestListResponse} from "../../../api";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ObjectId, ProjectRequestDTO, RequestCommand, RequestListResponse} from "../../../../api";
 import {Router} from "@angular/router";
 import {ModalController} from "@ionic/angular";
-import {ProjectRequestAddModalComponent} from "../modals/project-request-add-modal/project-request-add-modal.component";
+import {ProjectRequestAddModalComponent} from "../../modals/project-request-add-modal/project-request-add-modal.component";
 
 @Component({
   selector: 'app-project-requests',

@@ -19,6 +19,8 @@ import { Observable }                                        from 'rxjs';
 // @ts-ignore
 import { AddRequestResponse } from '../model/addRequestResponse';
 // @ts-ignore
+import { ApproveRequestResponse } from '../model/approveRequestResponse';
+// @ts-ignore
 import { GetRequestResponse } from '../model/getRequestResponse';
 // @ts-ignore
 import { RequestCommand } from '../model/requestCommand';
@@ -186,9 +188,9 @@ export class RequestControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiRequestsApprovePost(requestCommand: RequestCommand, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<object>;
-    public apiRequestsApprovePost(requestCommand: RequestCommand, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<object>>;
-    public apiRequestsApprovePost(requestCommand: RequestCommand, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<object>>;
+    public apiRequestsApprovePost(requestCommand: RequestCommand, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<ApproveRequestResponse>;
+    public apiRequestsApprovePost(requestCommand: RequestCommand, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<ApproveRequestResponse>>;
+    public apiRequestsApprovePost(requestCommand: RequestCommand, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<ApproveRequestResponse>>;
     public apiRequestsApprovePost(requestCommand: RequestCommand, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (requestCommand === null || requestCommand === undefined) {
             throw new Error('Required parameter requestCommand was null or undefined when calling apiRequestsApprovePost.');
@@ -246,7 +248,7 @@ export class RequestControllerService {
         }
 
         let localVarPath = `/api/requests/approve`;
-        return this.httpClient.request<object>('post', `${this.configuration.basePath}${localVarPath}`,
+        return this.httpClient.request<ApproveRequestResponse>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 body: requestCommand,

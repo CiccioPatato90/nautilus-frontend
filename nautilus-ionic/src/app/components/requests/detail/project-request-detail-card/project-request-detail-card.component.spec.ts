@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { AddAssociationModalComponent } from './add-association-modal.component';
+import { ProjectRequestDetailCardComponent } from './project-request-detail-card.component';
 
-describe('AddAssociationModalComponent', () => {
-  let component: AddAssociationModalComponent;
-  let fixture: ComponentFixture<AddAssociationModalComponent>;
+describe('ProjectRequestDetailCardComponent', () => {
+  let component: ProjectRequestDetailCardComponent;
+  let fixture: ComponentFixture<ProjectRequestDetailCardComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddAssociationModalComponent ],
+      declarations: [ ProjectRequestDetailCardComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AddAssociationModalComponent);
+    fixture = TestBed.createComponent(ProjectRequestDetailCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

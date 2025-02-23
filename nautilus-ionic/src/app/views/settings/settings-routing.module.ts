@@ -12,14 +12,6 @@ const routes: Routes = [
         path: 'item-mgmt',
         loadChildren: () => import('./item-mgmt/item-mgmt.module').then( m => m.ItemMgmtPageModule)
       },
-      {
-        path: 'assoc-mgmt',
-        loadChildren: () => import('./associations/associations-settings.module').then(m => m.AssocMgmtPageModule),
-      },
-      {
-        path: 'assoc-inventory',
-        loadChildren: () => import('./association-inventory/association-inventory.module').then( m => m.AssociationInventoryPageModule)
-      },
     ]
   },
 

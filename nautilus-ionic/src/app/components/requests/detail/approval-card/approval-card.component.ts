@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {RequestCommand, RequestCommandType, RequestStatus} from "../../../api";
-import {ConfirmActionComponent} from "../../utils/confirm-action/confirm-action.component";
 import {ModalController} from "@ionic/angular";
+import {ConfirmActionComponent} from "../../../utils/confirm-action/confirm-action.component";
 
 @Component({
   selector: 'app-approval-card',
@@ -49,6 +48,4 @@ export class ApprovalCardComponent {
     const { data } = await modal.onDidDismiss();
     return data; // returns true/false depending on user action
   }
-
-  protected readonly RequestStatus = RequestStatus;
 }

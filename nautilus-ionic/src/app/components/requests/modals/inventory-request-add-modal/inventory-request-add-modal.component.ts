@@ -6,7 +6,6 @@ import {
   InventoryRequestDTO,
   RequestControllerService
 } from "../../../../api";
-import {FormControl, FormGroup} from "@angular/forms";
 import {ActionSheetController, ModalController} from "@ionic/angular";
 
 @Component({

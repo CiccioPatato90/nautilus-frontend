@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  AssociationRequestDTO,
+  AssociationRequestDTO, InventoryItemDTO,
   ProjectRequestDTO,
   RequestCommand, RequestCommandType,
   RequestControllerService, RequestStatus, RequestType
@@ -18,7 +18,9 @@ export class ProjectRequestDetailPage implements OnInit {
   requestId?: string | null;
   req?: ProjectRequestDTO = {} as ProjectRequestDTO;
   requestingAssoc?: AssociationRequestDTO = {} as AssociationRequestDTO;
-  // itemsMetadata?: Map<number, InventoryItemDTO> = new Map<number, InventoryItemDTO>;
+  itemsMetadata?: Map<number, InventoryItemDTO> = new Map<number, InventoryItemDTO>();
+  originalAllocationMap: Map<string, number> = new Map<string, number>();
+
 
   constructor(private activatedRoute: ActivatedRoute,
               private requestController : RequestControllerService,
@@ -41,7 +43,9 @@ export class ProjectRequestDetailPage implements OnInit {
         this.req = req.projectRequestDTO;
         this.requestingAssoc = req.associationRequestDTO;
         // @ts-ignore
-        // this.itemsMetadata = new Map(Object.entries(req.commonData?.itemMetadataMap));
+        this.itemsMetadata = new Map(Object.entries(req.commonData?.itemMetadataMap ?? {}));
+        this.originalAllocationMap = new Map(Object.entries(req.projectRequestDTO?.allocatedResources?.allocationMap ?? {}));
+        console.log(this.originalAllocationMap)
       });
     }
   }

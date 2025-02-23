@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {AssociationRequestDTO} from "../../../api";
+import {AssociationRequestDTO} from "../../../../api";
 
 @Component({
   selector: 'app-association-request-detail-card',

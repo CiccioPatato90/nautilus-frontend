@@ -7,8 +7,8 @@ import {
 } from '@angular/common/http';
 import {Injectable} from "@angular/core";
 import {Observable, tap} from "rxjs";
-import {NavigationService} from "../services/navigation.service";
 import {KeycloakService} from "../services/keycloak.service";
+import {NavigationService} from "../services/navigation.service";
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {

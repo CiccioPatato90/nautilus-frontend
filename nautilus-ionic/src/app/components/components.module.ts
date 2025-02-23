@@ -4,15 +4,8 @@ import {IonicModule} from "@ionic/angular";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RouterLink} from "@angular/router";
 import {ToolbarComponent} from "./toolbar/toolbar.component";
-import {AssociationRequestsComponent} from "./requests/association-requests/association-requests.component";
-import {InventoryRequestsComponent} from "./requests/inventory-requests/inventory-requests.component";
 import {RequestsFilterComponent} from "./requests/requests-filter/requests-filter.component";
-import {InventoryItemCardComponent} from "./requests/inventory-item-card/inventory-item-card.component";
-import {
-  AssociationRequestDetailCardComponent
-} from "./requests/association-request-detail-card/association-request-detail-card.component";
 import {ConfirmActionComponent} from "./utils/confirm-action/confirm-action.component";
-import {ProjectRequestsComponent} from "./requests/project-requests/project-requests.component";
 import {LabelComponent} from "./granular/label/label.component";
 import {
   ProjectRequestAddModalComponent
@@ -23,19 +16,28 @@ import {
 import {
   AssociationRequestAddModalComponent
 } from "./requests/modals/association-request-add-modal/association-request-add-modal.component";
-import {AddAssociationModalComponent} from "./requests/modals/add-association-modal/add-association-modal.component";
-import {ApprovalCardComponent} from "./requests/approval-card/approval-card.component";
 import {NotificationBannerComponent} from "./utils/notification-banner/notification-banner.component";
+import {
+  ProjectRequestDetailCardComponent
+} from "./requests/detail/project-request-detail-card/project-request-detail-card.component";
+import {
+  AssociationRequestDetailCardComponent
+} from "./requests/detail/association-request-detail-card/association-request-detail-card.component";
+import {InventoryItemCardComponent} from "./requests/detail/inventory-item-card/inventory-item-card.component";
+import {ProjectRequestsComponent} from "./requests/list/project-requests/project-requests.component";
+import {ApprovalCardComponent} from "./requests/detail/approval-card/approval-card.component";
+import {AssociationRequestsComponent} from "./requests/list/association-requests/association-requests.component";
+import {InventoryRequestsComponent} from "./requests/list/inventory-requests/inventory-requests.component";
 
 @NgModule({
   declarations: [
-    AddAssociationModalComponent,
     ToolbarComponent,
     AssociationRequestsComponent,
     InventoryRequestsComponent,
     RequestsFilterComponent,
     InventoryItemCardComponent,
     AssociationRequestDetailCardComponent,
+    ProjectRequestDetailCardComponent,
     ConfirmActionComponent,
     ProjectRequestAddModalComponent,
     InventoryRequestAddModalComponent,
@@ -48,13 +50,13 @@ import {NotificationBannerComponent} from "./utils/notification-banner/notificat
   imports: [CommonModule, IonicModule, ReactiveFormsModule, FormsModule, RouterLink],
   exports:
     [
-      AddAssociationModalComponent,
       ToolbarComponent,
       AssociationRequestsComponent,
       InventoryRequestsComponent,
       RequestsFilterComponent,
       InventoryItemCardComponent,
       AssociationRequestDetailCardComponent,
+      ProjectRequestDetailCardComponent,
       ConfirmActionComponent,
       ProjectRequestAddModalComponent,
       InventoryRequestAddModalComponent,

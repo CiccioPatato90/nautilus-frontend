@@ -94,4 +94,6 @@
 
 <app-approval-card [buttonsDisabled]="!req?.associationConfirmed || req?.status !== RequestStatus.Pending"
                    (confirmationEvent)="handleConfirmationEvent($event)"></app-approval-card>
+
+  <app-notification-banner></app-notification-banner>
 </ion-content>

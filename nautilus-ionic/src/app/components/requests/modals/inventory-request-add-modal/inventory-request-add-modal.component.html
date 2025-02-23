@@ -16,6 +16,16 @@
         </ion-row>
 
         <ion-row>
+
+          <ion-item>
+            <ion-select interface="action-sheet" (ionChange)="addItem($event.detail.value)">
+              <ion-select-option *ngFor="let item of items" [value]="item">
+                {{ item.name }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+
+
           <ion-accordion-group *ngIf="selectedAssoc">
             <ion-accordion *ngFor="let box of selectedAssoc.inventoryBoxes">
               <ion-item slot="header">
@@ -56,13 +66,7 @@
                 </ion-grid>
               </ion-item>
 
-              <ion-item slot="content">
-                <ion-select interface="action-sheet" (ionChange)="addItem($event.detail.value)">
-                  <ion-select-option *ngFor="let item of items" [value]="item">
-                    {{ item.name }}
-                  </ion-select-option>
-                </ion-select>
-              </ion-item>
+
 
 
               <ion-item slot="content" *ngIf="addedItems?.length !== 0">

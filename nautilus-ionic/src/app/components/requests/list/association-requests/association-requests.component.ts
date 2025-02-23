@@ -1,5 +1,4 @@
 import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {RequestsFilterService} from "../../../services/requests/requests-filter.service";
 import {Router} from "@angular/router";
 import {
   AssociationRequestDTO,
@@ -8,11 +7,12 @@ import {
   RequestListResponse,
   RequestStatus,
   RequestType
-} from "../../../api";
+} from "../../../../api";
 import {ModalController} from "@ionic/angular";
 import {
   AssociationRequestAddModalComponent
-} from "../modals/association-request-add-modal/association-request-add-modal.component";
+} from "../../modals/association-request-add-modal/association-request-add-modal.component";
+import {RequestsFilterService} from "../../../../services/requests/requests-filter.service";
 
 
 @Component({

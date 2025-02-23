@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 import { SettingsPageRoutingModule } from './settings-routing.module';
 
 import { SettingsPage } from './settings.page';
-import {AssocMgmtPageModule} from "./associations/associations-settings.module";
 import {ItemMgmtPageModule} from "./item-mgmt/item-mgmt.module";
 import {RouterModule} from "@angular/router";
 
@@ -18,7 +17,6 @@ import {RouterModule} from "@angular/router";
     RouterModule,
     IonicModule,
     SettingsPageRoutingModule,
-    AssocMgmtPageModule,
     ItemMgmtPageModule
   ],
   declarations: [SettingsPage]

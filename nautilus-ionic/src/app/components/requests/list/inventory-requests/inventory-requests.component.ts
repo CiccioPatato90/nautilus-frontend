@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {RequestsFilterService} from "../../../services/requests/requests-filter.service";
 import {Router} from "@angular/router";
 import {
   InventoryBoxDTO,
@@ -8,11 +7,12 @@ import {
   ProjectStatus, RequestCommand, RequestCommandType, RequestControllerService,
   RequestListResponse,
   RequestStatus, RequestType
-} from "../../../api";
+} from "../../../../api";
 import {ModalController} from "@ionic/angular";
 import {
   InventoryRequestAddModalComponent
-} from "../modals/inventory-request-add-modal/inventory-request-add-modal.component";
+} from "../../modals/inventory-request-add-modal/inventory-request-add-modal.component";
+import {RequestsFilterService} from "../../../../services/requests/requests-filter.service";
 
 @Component({
   selector: 'app-inventory-requests',
@@ -25,7 +25,8 @@ export class InventoryRequestsComponent  implements OnInit {
   @Output() addRequestEvent = new EventEmitter<RequestCommand>();
   inventoryRequestsMap : Map<string, Array<InventoryRequestDTO>> = new Map();
 
-  constructor(private requestFilterService: RequestsFilterService, private router: Router,
+  constructor(private requestFilterService: RequestsFilterService,
+              private router: Router,
               private modalCtrl: ModalController,
               private requestService: RequestControllerService) { }
 

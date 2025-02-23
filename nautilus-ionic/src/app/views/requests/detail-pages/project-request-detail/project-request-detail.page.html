@@ -1,7 +1,7 @@
 <app-toolbar [title]="'Project Request Detail'">
 </app-toolbar>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" *ngIf="req && itemsMetadata">
   <ion-card class="custom-card">
 
     <ion-card-header class="card-header">
@@ -26,7 +26,7 @@
             </ion-col>
 
           </ion-row>
-<!--NEED TO WORK ON WARNING SIGN-->
+<!--TODO: NEED TO WORK ON WARNING SIGN-->
           <ion-row *ngIf="!requestingAssoc?.associationConfirmed">
             <app-label [text]="'Association Not Confirmed'"></app-label>
           </ion-row>
@@ -55,15 +55,22 @@
 
     <ion-card-content>
       <ion-grid>
-        <ion-row>
 
+        <ion-row>
+          <ion-col>
+            <app-label [text]="req?.projectName" [description]="'Project Name'"></app-label>
+          </ion-col>
+          <ion-col>
+            <app-label [text]="req?.description" [description]="'Project Description'"></app-label>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
           <ion-col>
             <ion-row style="align-items: flex-end">
               <app-label [text]="req?.status" [description]="'Status'" [textStyle]="{color: getStatusColor(req?.status)}"></app-label>
             </ion-row>
-
           </ion-col>
-
           <ion-col>
             <app-label [text]="req?.approvedBy" [description]="'Approved By'"></app-label>
           </ion-col>
@@ -78,12 +85,37 @@
           </ion-col>
         </ion-row>
 
+
+
       </ion-grid>
     </ion-card-content>
 
   </ion-card>
 
-<!--  <app-project-item-card [req]="req" *ngIf="req"></app-project-item-card>-->
+  <ion-card>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <app-label [text]="req?.allocatedResources?.completionPercentage" [description]="'Simulated Completion Percentage'"></app-label>
+        </ion-col>
+        <ion-col>
+          <app-label [text]="req?.budget" [description]="'Budget'"></app-label>
+        </ion-col>
+      </ion-row>
+
+
+<!--      <ion-row *ngFor="let allocatedEntry of originalAllocationMap">-->
+<!--        <ion-col>-->
+<!--          <app-label [text]="allocatedEntry[0]" [description]="'Resource Name'"></app-label>-->
+<!--        </ion-col>-->
+<!--        <ion-col>-->
+<!--          <app-label [text]="allocatedEntry[1]" [description]="'Allocated Quantity'"></app-label>-->
+<!--        </ion-col>-->
+<!--      </ion-row>-->
+    </ion-grid>
+  </ion-card>
+
+  <app-project-request-detail-card [req]="req" [itemsMetadata]="itemsMetadata" [originalAllocationMap]="originalAllocationMap"></app-project-request-detail-card>
 
   <app-approval-card [buttonsDisabled]="req?.status !== RequestStatus.Pending || !requestingAssoc?.associationConfirmed"
                      (confirmationEvent)="handleConfirmationEvent($event)"></app-approval-card>

@@ -1,11 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {
+  GreedyOrder,
+  GreedyStrategy,
   InventoryChangeDTO,
   InventoryItemDTO,
   InventoryRequestControllerService,
-  InventoryRequestDTO, InventorySimulationType, ProjectRequest,
+  InventoryRequestDTO, InventorySimulationType, ObjectId, ProjectRequest,
   RequestStatus, SimulateCommand, SimulateRequestResponse
-} from "../../../api";
+} from "../../../../api";
 
 @Component({
   selector: 'app-inventory-item-card',
@@ -15,6 +17,7 @@ import {
 export class InventoryItemCardComponent  implements OnInit {
   @Input() req: InventoryRequestDTO = {} as InventoryRequestDTO;
   @Input() itemsMetadata: Map<number, InventoryItemDTO> = new Map<number, InventoryItemDTO>();
+  originalCompletions: Map<string, number> = new Map<string, number>();
 
   changesSet = new Set<InventoryChangeDTO>();
   command = {} as SimulateCommand;
@@ -72,6 +75,7 @@ export class InventoryItemCardComponent  implements OnInit {
 
     this.inventoryRequestController.apiRequestsInvSimPost(this.command).subscribe(value => {
       this.simulationResponse = value;
+      this.originalCompletions = new Map(Object.entries(value?.originalCompletionPercentages ?? {}));
       console.log("response: ", value);
     })
 
@@ -85,5 +89,38 @@ export class InventoryItemCardComponent  implements OnInit {
       processedRequests?.forEach(req => acc += req.allocatedResources?.completionPercentage ?? 0);
     }
     return acc/(length ?? 0.0);
+  }
+
+  getString(id: ObjectId | undefined) {
+    if (id) {
+      return id.toString();
+    }
+    else{
+      return "Project ID not found";
+    }
+  }
+
+  protected readonly GreedyStrategy = GreedyStrategy;
+
+  changeSimulationStrategy(event: any) {
+    if (event){
+      console.log("changeScenario", event.detail.value);
+      this.command.greedyStrategy = event.detail.value;
+    }
+
+  }
+
+  changeSimulationStrategyOrder(event: any) {
+    if (event){
+      console.log("changeScenario", event.detail.value);
+      this.command.greedyOrder = event.detail.value;
+    }
+  }
+
+  protected readonly GreedyOrder = GreedyOrder;
+
+  isSimulateDisabled() {
+    return this.command.simulationType === undefined
+      || this.command.greedyStrategy === undefined || this.command.greedyOrder === undefined;
   }
 }
