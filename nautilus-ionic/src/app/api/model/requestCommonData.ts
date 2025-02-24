@@ -16,6 +16,7 @@ import { InventoryItemDTO } from './inventoryItemDTO';
 export interface RequestCommonData { 
     associationsList?: Array<AssociationDTO>;
     itemMetadataMap?: { [key: string]: InventoryItemDTO; };
+    itemAvailabilitiesMap?: { [key: string]: number; };
     itemsList?: Array<InventoryItemDTO>;
     inventoryRequestList?: Array<InventoryRequestDTO>;
     projectRequestList?: Array<ProjectRequestDTO>;

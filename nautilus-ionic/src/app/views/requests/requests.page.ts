@@ -9,6 +9,7 @@ import {
 } from "../../api";
 import {RequestsFilterService} from "../../services/requests/requests-filter.service";
 import {ModalController} from "@ionic/angular";
+import {NotificationService} from "../../services/utils/notification-service.service";
 
 @Component({
   selector: 'app-requests',
@@ -26,6 +27,7 @@ export class RequestsPage implements OnInit {
 
   constructor(private requestController: RequestControllerService,
               private requestFilterService: RequestsFilterService,
+              private notificationService: NotificationService,
               private modalCtrl : ModalController) { }
 
   ngOnInit() {
@@ -37,7 +39,6 @@ export class RequestsPage implements OnInit {
     this.requestFilterService.filters$.subscribe(filters => {
       if (filters !== null){
         this.filters = filters;
-        this.loadRequests();
       }
     });
 
@@ -46,6 +47,7 @@ export class RequestsPage implements OnInit {
   }
 
   private loadRequests() {
+    this.requestResponse = undefined;
     this.requestController.apiRequestsListPost(this.filters).subscribe(response => {
       this.requestResponse = response
     });
@@ -53,7 +55,7 @@ export class RequestsPage implements OnInit {
 
   filterTypeChanged($event: any) {
     this.filters.requestType = $event.detail.value;
-    this.requestResponse = undefined;
+    this.requestFilterService.setFilters(this.filters);
     this.loadRequests();
   }
 
@@ -61,8 +63,13 @@ export class RequestsPage implements OnInit {
 
   addRequest(command: RequestCommand) {
     this.requestController.apiRequestsAddPost(command).subscribe(value => {
-      console.log("saved req with ID", value.requestMongoID);
-      this.loadRequests();
+      if(value){
+        this.notificationService.showSuccess("Request saved successfully");
+        console.log("saved req with ID", value.requestMongoID);
+        this.loadRequests();
+      }else{
+        this.notificationService.showError("Failed to save request");
+      }
     });
   }
 }

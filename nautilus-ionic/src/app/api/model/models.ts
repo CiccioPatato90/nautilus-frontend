@@ -38,6 +38,7 @@ export * from './simulateAllocationStats';
 export * from './simulateCommand';
 export * from './simulateRequestResponse';
 export * from './simulateResourceUsage';
+export * from './simulationSolver';
 export * from './tabDTO';
 export * from './virtualWarehouseResponse';
 export * from './warehouseDTO';

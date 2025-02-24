@@ -55,6 +55,7 @@ model/simulateAllocationStats.ts
 model/simulateCommand.ts
 model/simulateRequestResponse.ts
 model/simulateResourceUsage.ts
+model/simulationSolver.ts
 model/tabDTO.ts
 model/virtualWarehouseResponse.ts
 model/warehouseDTO.ts

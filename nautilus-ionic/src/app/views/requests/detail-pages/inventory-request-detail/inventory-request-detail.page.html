@@ -83,7 +83,8 @@
 
     </ion-card>
 
-    <app-inventory-item-card [req]="req" *ngIf="req && itemsMetadata" [itemsMetadata]="itemsMetadata"></app-inventory-item-card>
+    <app-inventory-item-card [req]="req" *ngIf="req && itemsMetadata && itemsAvailability" [itemsMetadata]="itemsMetadata"
+                             [itemsAvailability]="itemsAvailability"></app-inventory-item-card>
 
 
     <app-approval-card [buttonsDisabled]="req?.status !== RequestStatus.Pending"

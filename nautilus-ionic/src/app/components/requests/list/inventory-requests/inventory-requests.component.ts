@@ -95,10 +95,6 @@ export class InventoryRequestsComponent  implements OnInit {
       } as RequestCommand;
 
       this.addRequestEvent.emit(command);
-
-      // this.requestService.apiRequestsAddPost(command).subscribe(value => {
-      //   console.log("saved req with ID", value.requestMongoID)
-      // })
     }
   }
 }

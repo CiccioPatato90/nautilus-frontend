@@ -6,7 +6,7 @@ import {
   InventoryItemDTO,
   InventoryRequestControllerService,
   InventoryRequestDTO, InventorySimulationType, ObjectId, ProjectRequest,
-  RequestStatus, SimulateCommand, SimulateRequestResponse
+  RequestStatus, SimulateCommand, SimulateRequestResponse, SimulationSolver
 } from "../../../../api";
 
 @Component({
@@ -16,7 +16,8 @@ import {
 })
 export class InventoryItemCardComponent  implements OnInit {
   @Input() req: InventoryRequestDTO = {} as InventoryRequestDTO;
-  @Input() itemsMetadata: Map<number, InventoryItemDTO> = new Map<number, InventoryItemDTO>();
+  @Input() itemsMetadata: Map<string, InventoryItemDTO> = new Map<string, InventoryItemDTO>();
+  @Input() itemsAvailability: Map<string, number> = new Map<string, number>();
   originalCompletions: Map<string, number> = new Map<string, number>();
 
   changesSet = new Set<InventoryChangeDTO>();
@@ -35,20 +36,32 @@ export class InventoryItemCardComponent  implements OnInit {
   protected readonly RequestStatus = RequestStatus;
 
   getMetadata(itemId: number | undefined) {
-    var res = {} as InventoryItemDTO;
-      this.itemsMetadata.forEach((value, key) => {
-        if(key == itemId){
-          res = value;
-        }
-      });
-    return res;
+      // @ts-ignore
+    // this.itemsMetadata.forEach((value, key) => {
+    //     if(key == itemId){
+    //       return value;
+    //     }
+    //   });
+    //   return {} as InventoryItemDTO;
+
+    // if(itemId === undefined) return {} as InventoryItemDTO;
+    if(itemId === undefined) return {} as InventoryItemDTO;
+    if (this.itemsMetadata.has(itemId?.toString()) ){
+      return this.itemsMetadata.get(itemId?.toString());
+    }else{
+      return {} as InventoryItemDTO;
+    }
+
   }
 
-  changeSimulationType(event: any) {
-    if (event){
-      console.log("changeScenario", event.detail.value);
-      this.command.simulationType = event.detail.value;
+  getAvailableQuantity(itemId: number | undefined) {
+    if(itemId === undefined) return 0;
+    if (this.itemsAvailability.has(itemId?.toString())){
+      return this.itemsAvailability.get(itemId?.toString())
+    }else{
+     return 0;
     }
+
   }
 
   includeSim(event: any,change: InventoryChangeDTO) {
@@ -102,25 +115,46 @@ export class InventoryItemCardComponent  implements OnInit {
 
   protected readonly GreedyStrategy = GreedyStrategy;
 
-  changeSimulationStrategy(event: any) {
+  changeSimulationType(event: any) {
     if (event){
       console.log("changeScenario", event.detail.value);
+      this.command.simulationType = event.detail.value;
+    }
+  }
+
+  changeSimulationStrategy(event: any) {
+    if (event){
       this.command.greedyStrategy = event.detail.value;
     }
-
   }
 
   changeSimulationStrategyOrder(event: any) {
     if (event){
-      console.log("changeScenario", event.detail.value);
       this.command.greedyOrder = event.detail.value;
+    }
+  }
+
+
+  changeSimulationSolver(event: any) {
+    if (event){
+      this.command.solver = event.detail.value;
     }
   }
 
   protected readonly GreedyOrder = GreedyOrder;
 
   isSimulateDisabled() {
-    return this.command.simulationType === undefined
-      || this.command.greedyStrategy === undefined || this.command.greedyOrder === undefined;
+    switch (this.command.solver) {
+        case SimulationSolver.Greedy:
+          return this.command.simulationType === undefined
+            || this.command.greedyStrategy === undefined || this.command.greedyOrder === undefined;
+        case SimulationSolver.Linear:
+          return this.command.simulationType === undefined;
+      default:
+        return true;
+    }
+
   }
+  protected readonly SimulationSolver = SimulationSolver;
+
 }

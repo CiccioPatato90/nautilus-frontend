@@ -18,7 +18,8 @@ export class InventoryRequestDetailPage implements OnInit {
   requestId?: string | null;
   req?: InventoryRequestDTO = {} as InventoryRequestDTO;
   requestingAssoc?: AssociationRequestDTO = {} as AssociationRequestDTO;
-  itemsMetadata?: Map<number, InventoryItemDTO> = new Map<number, InventoryItemDTO>;
+  itemsMetadata?: Map<string, InventoryItemDTO> = new Map<string, InventoryItemDTO>;
+  itemsAvailability?: Map<string, number> = new Map<string, number>;
 
   constructor(private activatedRoute: ActivatedRoute,
               private requestController : RequestControllerService,) { }
@@ -41,6 +42,7 @@ export class InventoryRequestDetailPage implements OnInit {
 
         // @ts-ignore
         this.itemsMetadata = new Map(Object.entries(req.commonData?.itemMetadataMap ?? {}));
+        this.itemsAvailability = new Map(Object.entries(req.commonData?.itemAvailabilitiesMap ?? {}));
       });
     }
   }

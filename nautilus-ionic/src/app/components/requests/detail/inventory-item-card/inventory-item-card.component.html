@@ -17,7 +17,7 @@
           <app-label [text]="change.requestedQuantity" [description]="'Particular Availability'"></app-label>
         </ion-col>
         <ion-col>
-          <app-label [text]="getMetadata(change.itemId)?.availableQuantity" [description]="'Global Availability'"></app-label>
+          <app-label [text]="getAvailableQuantity(change.itemId)" [description]="'Global Availability'"></app-label>
         </ion-col>
 <!--        <ion-col size="3">-->
 <!--          <div class="data-value change-type">-->
@@ -63,6 +63,20 @@
     </ion-row>
 
     <ion-row>
+      <ion-segment (ionChange)="changeSimulationSolver($event)">
+        <ion-segment-button [value]="SimulationSolver.Linear">
+          <app-label [text]="'Linear Solver'" [description]="'Solver'">
+          </app-label>
+        </ion-segment-button>
+        <ion-segment-button [value]="SimulationSolver.Greedy">
+          <app-label [text]="'Greedy SOlver'" [description]="'Solver'">
+          </app-label>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-row>
+
+
+    <ion-row *ngIf="this.command.solver === SimulationSolver.Greedy">
       <ion-col>
         <ion-segment (ionChange)="changeSimulationStrategy($event)">
           <ion-segment-button [value]="GreedyStrategy.AssociationActivity">
@@ -131,32 +145,19 @@
       </ion-col>
 
       <ion-col>
-        <app-label [text]="simulationResponse.metadata?.totalResourcesUsed" [description]="'Tot Resources used'"></app-label>
+        <app-label [text]="getAvgProjectCompletion(simulationResponse?.processedRequests, simulationResponse?.processedRequests?.length) + '%'" [description]="'Avg Project Completion Rate'"></app-label>
       </ion-col>
-
-      <ion-col>
-        <app-label [text]="simulationResponse.metadata?.unusedResources" [description]="'Tot Resources Unused'"></app-label>
-      </ion-col>
-
-      <ion-col>
-        <app-label [text]="getAvgProjectCompletion(simulationResponse?.processedRequests, simulationResponse?.processedRequests?.length)" [description]="'Tot Resources Unused'"></app-label>
-      </ion-col>
-
 
     </ion-row>
 
     <ion-row>
       <ion-col>
-<!--          <app-label [text]="getMetadata(simulationResponse.metadata?.leastAssignedResource?.resourceId)?.name" [description]="'Tot Resources used'"></app-label>-->
-        <app-label [text]="simulationResponse.metadata?.mostAssignedResource?.resourceId" [description]="'Most Used Resource'"></app-label>
-        <app-label [text]="simulationResponse.metadata?.leastAssignedResource?.resourceId" [description]="'Least Used Resource'"></app-label>
+        <app-label [text]="simulationResponse.metadata?.unusedResources" [description]="'Tot Resources Unused'"></app-label>
       </ion-col>
 
-      <ion-col>
-<!--          <app-label [text]="getMetadata(simulationResponse.metadata?.leastAssignedResource?.resourceId)?.name" [description]="'Tot Resources used'"></app-label>-->
 
-        <app-label [text]="simulationResponse.metadata?.mostAssignedResource?.usageCount" [description]="'Most Used Resource Count'"></app-label>
-        <app-label [text]="simulationResponse.metadata?.leastAssignedResource?.usageCount" [description]="'Least Used Resource Count'"></app-label>
+      <ion-col>
+        <app-label [text]="simulationResponse.metadata?.totalResourcesUsed" [description]="'Tot Resources used'"></app-label>
       </ion-col>
     </ion-row>
 
@@ -182,11 +183,11 @@
       </ion-col>
 
       <ion-col>
-        <app-label [text]="proj.allocatedResources?.completionPercentage ?? 'Unfeasible'" [description]="'Simulated Completion Percentage'"></app-label>
+        <app-label [text]="proj.allocatedResources?.completionPercentage + '%' ?? 'Unfeasible'" [description]="'Simulated Completion Percentage'"></app-label>
       </ion-col>
 
       <ion-col>
-        <app-label [text]="originalCompletions.get(getString(proj._id))" [description]="'Original Completion Percentage'"></app-label>
+        <app-label [text]="originalCompletions.get(getString(proj._id)) + '%'" [description]="'Original Completion Percentage'"></app-label>
       </ion-col>
 
       <ion-col>

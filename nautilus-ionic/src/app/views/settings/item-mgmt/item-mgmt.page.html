@@ -5,7 +5,7 @@
   <ion-grid>
     <ion-row>
       <!-- Left Column: Inventory List -->
-      <ion-col size="6">
+      <ion-col>
         <ion-card>
           <ion-card-header>
             <ion-searchbar (ionInput)="filterItems()"></ion-searchbar>
@@ -16,7 +16,6 @@
               <ion-label>
                 <h2>{{ item.name }}</h2>
                 <p>Categoria: {{ item.itemCategory?.name }}</p>
-<!--                <p>Status: <strong [class.banned]="item.banned">{{ item.banned ? 'BANNED' : 'ACTIVE' }}</strong></p>-->
               </ion-label>
 
               <ion-button fill="clear" color="danger">
